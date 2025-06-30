@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Chronex Classes</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#e8d4f3">
+  <link rel="manifest" href="manifest.json">
+  <meta name="msapplication-TileColor" content="#e8d4f3">
+  <link rel="icon" type="image/png" href="logo.png" />
+  <style>
+    body {
+      background-color: #fffaf0;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    header {
+      background-color: #e8d4f3;
+      padding: 10px 20px;
+      margin: 10px;
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    header img {
+      height: 50px;
+    }
+
+    header h2 {
+      margin: 0 0 0 10px;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #7851a9;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 6px;
+    }
+
+    nav a:hover,
+    nav a.active {
+      background-color: #fffaf0;
+    }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 30px;
+      left: 0;
+      background-color: #fffaf0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      z-index: 100;
+    }
+
+    .dropdown-content a {
+      display: block;
+      padding: 10px 20px;
+      color: #7851a9;
+      text-decoration: none;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+    }
+
+    .hamburger div {
+      width: 25px;
+      height: 3px;
+      background-color: #fffaf0;
+      border-radius: 2px;
+    }
+
+    .mobile-menu {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .mobile-menu {
+        display: none;
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        background-color: #e8d4f3;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        flex-direction: column;
+        width: 180px;
+        z-index: 999;
+        padding: 10px 0;
+      }
+
+      .mobile-menu a {
+        padding: 10px 20px;
+        color: #7851a9;
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .mobile-menu a:hover {
+        background-color: #e8d4f3;
+      }
+
+      .mobile-menu.active {
+        display: flex;
+      }
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 30px 20px;
+    }
+
+    .resource-card {
+      background: linear-gradient(to right, #e0f7fa, #f1f8e9);
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 20px;
+      margin-bottom: 20px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .resource-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+
+    .resource-card h3 {
+      margin: 0 0 10px;
+      color: #1a237e;
+    }
+
+    .resource-card p {
+      margin-bottom: 15px;
+    }
+
+    .download-button {
+      display: inline-block;
+      background: linear-gradient(to right, #007cf0, #00dfd8);
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: 0.3s ease;
+    }
+
+    .download-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+    }
+
+    footer {
+      background-color: #000;
+      color: white;
+      text-align: center;
+      padding: 12px;
+      margin-top: 40px;
+    }
+  </style>
+  <script>
+    function toggleMenu() {
+      document.querySelector('.mobile-menu').classList.toggle('active');
+    }
+  </script>
+</head>
+<body>
+
+<header>
+  <div style="display: flex; align-items: center;">
+    <img src="logo.png" alt="Chronex Classes Logo" />
+    <h2>Chronex Classes</h2>
+  </div>
+
+  <div class="hamburger" onclick="toggleMenu()">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <div class="dropdown">
+      <a href="#">Batches ▼</a>
+      <div class="dropdown-content">
+        <a href="class11.html">Class 11</a>
+        <a href="class12.html">Class 12</a>
+      </div>
+    </div>
+    <a href="resources.html">Resources</a>
+    <a href="course.html">Course Details</a>
+    <a href="contact.html">Registration & Contact</a>
+  </nav>
+
+  <div class="mobile-menu">
+    <a href="index.html">Home</a>
+    <a href="class11.html">Class 11</a>
+    <a href="class12.html">Class 12</a>
+    <a href="resources.html">Resources</a>
+    <a href="course.html">Course Details</a>
+    <a href="contact.html">Registration & Contact</a>
+  </div>
+</header>
+
+<div class="container">
+  <h1>📚 Resources</h1>
+  <p>Welcome to the Chronex Classes Resources page! All the important books for Class 11 and 12 Physics are here — simply click the <b>DOWNLOAD</b> button and start reading!</p>
+
+  <!-- Resource Cards -->
+    <div class="resource-card">
+      <h3>📘 Concepts of Physics – H. C. Verma [Vol 01]</h3>
+      <p>👉 <i>Build a rock-solid Physics base with intuitive concepts and JEE-friendly problems.</i></p>
+      <a href="https://drive.google.com/open?id=1q-PFzpDStlFBDebuGSGQVwcnRB1NZ0rE&usp=drive_fs" target="_blank" class="download-button">📥 Download PDF</a>
+    </div>
+
+    <div class="resource-card">
+      <h3>📘 Concepts of Physics – H. C. Verma [Vol 02]</h3>
+      <p>👉 <i>Advance your understanding with deeper concepts and problem-solving finesse.</i></p>
+      <a href="https://drive.google.com/open?id=1qwge546PApRaa8Rr96BbSWAjGpLjxtuX&usp=drive_fs" target="_blank" class="download-button">📥 Download PDF</a>
+    </div>
+
+    <div class="resource-card">
+      <h3>📗 Mechanics – D. C. Pandey [Vol 01]</h3>
+      <p>👉 <i>Grasp motion, force, and Newton’s laws with structured beginner-friendly problems.</i></p>
+      <a href="https://drive.google.com/open?id=1pqfNsGsOrI3MoWKQPMquSx68Dh8goZ_y&usp=drive_fs" target="_blank" class="download-button">📥 Download PDF</a>
+    </div>
+
+    <div class="resource-card">
+      <h3>📗 Mechanics – D. C. Pandey [Vol 02]</h3>
+      <p>👉 <i>Master advanced mechanics with multi-concept questions and application skills.</i></p>
+      <a href="https://drive.google.com/open?id=1ptSw1P7o14z--Y0qEzZV1rHcU5GHY64s&usp=drive_fs" target="_blank" class="download-button">📥 Download PDF</a>
+    </div>
+
+    <div class="resource-card">
+      <h3>📕 Waves & Thermodynamics – D. C. Pandey</h3>
+      <p>👉 <i>Concept-rich theory and practice for heat, sound, and wave-based topics.</i></p>
+      <a href="https://drive.google.com/open?id=1ptun1305HJcj7r2z3hRrtIQTxE5Gm7H6&usp=drive_fs" target="_blank" class="download-button">📥 Download PDF</a>
+    </div>
+
+    <div class="resource-card">
+      <h3>⚡Electricity & Magnetism – D. C. Pandey</h3>
+      <p>👉 <i>Strengthen your grip on current, fields, circuits, and magnetic interactions.</i></p>
+      <a href="https://drive.google.com/open?id=1px7pes3SygMLDxU9QznRcRJkeOan-Tm_&usp=drive_fs" target="_blank" class="download-button">📥 Download PDF</a>
+    </div>
+
+    <div class="resource-card">
+      <h3>🔬 Optics & Modern Physics – D. C. Pandey</h3>
+      <p>👉 <i>Learn light, photons, atoms and nuclei through crisp explanations and questions.</i></p>
+      <a href="https://drive.google.com/open?id=1pxQDtnd8IXJAtU8pBIcahqIhdr-MGZvR&usp=drive_fs" target="_blank" class="download-button">📥 Download PDF</a>
+    </div>
+
+    <div class="resource-card">
+      <h3>📘 Mechanics by D. S. Mathur</h3>
+      <p>👉 <i>A classical approach to Mechanics that builds core intuition and depth.</i></p>
+      <a href="https://drive.google.com/open?id=13Oqg3TmZNhMn97FOuGVObkO7CinCujEM&usp=drive_fs" target="_blank" class="download-button">📥 Download PDF</a>
+    </div>
+
+    <div class="resource-card">
+      <h3>📗 Resnick, Halliday, Walker – Fundamentals of Physics</h3>
+      <p>👉 <i>Internationally acclaimed for conceptual clarity and logical progression.</i></p>
+      <a href="https://drive.google.com/open?id=1M2Wl0oMISDrbV3J6BwG0ha-o0LGMxhsW&usp=drive_fs" target="_blank" class="download-button">📥 Download PDF</a>
+    </div>
+
+    <div class="resource-card">
+      <h3>📗 Schaum's Outline – Vector Analysis</h3>
+      <p>👉 <i>Your go-to guide for mastering vectors with step-by-step solved problems.</i></p>
+      <a href="https://drive.google.com/open?id=1-74zpYBWVy1OD818ZY014ZIX62bX1tA3&usp=drive_fs" target="_blank" class="download-button">📥 Download PDF</a>
+    </div>
+</div>
+
+<footer>
+  &copy; 2025 Chronex Classes. All rights reserved.
+</footer>
+
+<script>
+  const currentPage = location.pathname.split("/").pop();
+  document.querySelectorAll("nav a").forEach(link => {
+    if (link.getAttribute("href") === currentPage) {
+      link.classList.add("active");
+    } else {
+      link.classList.remove("active");
+    }
+  });
+</script>
+
+</body>
+</html>
