@@ -1,0 +1,20 @@
+{
+  "name": "Chronex Classes",
+  "short_name": "Chronex Classes",
+  "start_url": "Home.html",
+  "display": "standalone",
+  "background_color": "#e8d4f3",
+  "theme_color": "#e8d4f3",
+  "icons": [
+    {
+      "src": "https://placehold.co/192x192/7851A9/FFFFFF?text=CC",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://placehold.co/512x512/7851A9/FFFFFF?text=CC",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+   ]
+}
