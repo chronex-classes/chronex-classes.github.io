@@ -292,22 +292,70 @@
 </footer>
 
 <script>
-  function toggleMenu() {
-    document.getElementById('mobileMenu').classList.toggle('active');
-    document.querySelector('.hamburger').classList.toggle('open');
-  }
-  
-  // Set current year in footer
-  document.getElementById('year').textContent = new Date().getFullYear();
+  // Global variable to store the A2HS prompt event
+  let deferredPrompt;
+  const installButtonDesktop = document.getElementById('installButtonDesktop');
+  const installButtonMobile = document.getElementById('installButtonMobile');
+  const mobileInstallItem = document.getElementById('installItemMobile');
 
-  // Service Worker Registration
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/sw.js')
-        .then(reg => console.log('✅ Service Worker Registered', reg))
-        .catch(error => console.error('❌ Service Worker Registration Failed:', error));
-    });
-  }
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('active');
+    document.querySelector('.hamburger').classList.toggle('open');
+  }
+  
+  // Set current year in footer
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // --- PWA Install Logic (A2HS) ---
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    // Prevent the default browser prompt (we control it now)
+    e.preventDefault();
+    // Stash the event so it can be triggered later
+    deferredPrompt = e;
+    
+    // Show the custom install buttons
+    installButtonDesktop.classList.remove('hidden');
+    mobileInstallItem.classList.remove('hidden');
+
+    console.log('✅ beforeinstallprompt event captured. Install button shown.');
+  });
+
+  function handleInstallClick() {
+    if (deferredPrompt) {
+      // Hide the custom buttons immediately
+      installButtonDesktop.classList.add('hidden');
+      mobileInstallItem.classList.add('hidden');
+      
+      // Show the native browser prompt
+      deferredPrompt.prompt();
+      
+      // Wait for the user to respond to the prompt
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('User accepted the A2HS prompt');
+        } else {
+          console.log('User dismissed the A2HS prompt');
+        }
+        // The prompt can't be used again
+        deferredPrompt = null;
+      });
+    }
+  }
+
+  installButtonDesktop.addEventListener('click', handleInstallClick);
+  installButtonMobile.addEventListener('click', handleInstallClick);
+
+
+  // Service Worker Registration
+  // Note: Using './sw.js' assumes the Service Worker file is in the root directory.
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js')
+        .then(reg => console.log('✅ Service Worker Registered', reg))
+        .catch(error => console.error('❌ Service Worker Registration Failed:', error));
+    });
+  }
 </script>
 
 </body>
