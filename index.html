@@ -13,189 +13,24 @@
   <!-- Load Tailwind CSS for modern, responsive styling -->
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    /* Custom CSS for base styles and layout */
-    body {
-      background-color: #fffaf0;
-      font-family: 'Inter', sans-serif;
-      margin: 0;
-      padding: 0;
-      color: #333;
-    }
-
-    /* Header styles */
-    header {
-      background-color: #e8d4f3;
-      padding: 10px 20px 6px 20px;
-      margin: 10px 10px 0 10px;
-      border-radius: 12px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      transition: all 0.3s ease-in-out; 
-    }
-
-    header img {
-      height: 50px;
-      background-color: #7851a9; 
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      transition: transform 0.2s;
-    }
-    header img:hover { transform: scale(1.05); }
-
-    header h2 {
-      margin: 0 0 0 10px;
-      font-size: 22px;
-      font-weight: bold;
-      color: #7851a9;
-    }
-
-    nav {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-      flex-wrap: wrap;
-    }
-
-    nav a {
-      text-decoration: none;
-      color: #7851a9;
-      font-weight: 600;
-      padding: 6px 14px;
-      border-radius: 6px;
-      transition: background-color 0.2s, transform 0.2s;
-    }
-
-    nav a:hover,
-    nav a.active {
-      background-color: #fffaf0;
-      transform: translateY(-1px);
-    }
-
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      cursor: pointer;
-      gap: 5px;
-      padding: 5px;
-      border-radius: 4px;
-      background-color: #7851a9;
-      transition: background-color 0.3s;
-    }
-
-    .hamburger div {
-      width: 25px;
-      height: 3px;
-      background-color: #fffaf0;
-      border-radius: 2px;
-      transition: all 0.3s ease-in-out;
-    }
-    
-    .hamburger.open div:nth-child(1) { transform: translateY(8px) rotate(45deg); }
-    .hamburger.open div:nth-child(2) { opacity: 0; }
-    .hamburger.open div:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
-
-    .mobile-menu {
-      display: flex;
-      flex-direction: column;
-      max-height: 0;
-      opacity: 0;
-      overflow: hidden;
-      transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out; 
-      position: absolute;
-      top: 70px;
-      right: 10px;
-      background-color: #e8d4f3;
-      border: 1px solid #7851a9;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      width: calc(100% - 20px);
-      z-index: 999;
-      padding: 0;
-    }
-    
-    .mobile-menu.active {
-      max-height: 300px;
-      opacity: 1;
-      padding: 10px 0;
-    }
-
-    @media (max-width: 768px) {
-      nav { display: none; }
-      .hamburger { display: flex; }
-      .mobile-menu a {
-        padding: 10px 20px;
-        color: #7851a9;
-        text-decoration: none;
-        font-weight: 600;
-        transition: background-color 0.2s, padding-left 0.2s;
-      }
-      .mobile-menu a:hover,
-      .mobile-menu a.active {
-        background-color: #fffaf0;
-        padding-left: 25px;
-      }
-    }
-
-    main.container {
-      max-width: 1000px;
-      margin: auto;
-      padding: 30px 20px;
-    }
-
-    footer {
-      background-color: #7851a9;
-      color: white;
-      text-align: center;
-      padding: 12px;
-      margin-top: 40px;
-      font-size: 14px;
-    }
-
-    .feature-card {
-      background-color: white;
-      border: 1px solid #e8d4f3;
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-      transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
-      cursor: pointer;
-      min-height: 120px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .feature-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(120, 81, 169, 0.2);
-      border-color: #7851a9;
-    }
-
-    @keyframes pulse-once {
-      0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(120, 81, 169, 0.7); }
-      70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(120, 81, 169, 0); }
-      100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(120, 81, 169, 0); }
-    }
-    
-    .cta-pulse {
-      animation: pulse-once 2s infinite cubic-bezier(0.66, 0.01, 0, 1);
-    }
-    
-    .cta-button {
-      transition: background-color 0.3s, transform 0.1s;
-    }
-    
-    .cta-button:active {
-      transform: scale(0.98);
-    }
-  </style>
+body { background-color: #fffaf0; font-family: 'Inter', sans-serif; color: #333; margin: 0; }
+header { background-color: #e8d4f3; padding: 10px 20px; margin: 10px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; position: sticky; top: 0; z-index: 1000; }
+header img { height: 50px; width: 50px; background-color: #7851a9; border-radius: 50%; transition: transform 0.2s; }
+header img:hover { transform: scale(1.05); }
+header h2 { color: #7851a9; margin-left: 10px; font-size: 22px; font-weight: bold; }
+nav { display: flex; gap: 18px; align-items: center; }
+nav a { text-decoration: none; color: #7851a9; font-weight: 600; padding: 6px 14px; border-radius: 6px; transition: background-color 0.2s, transform 0.2s; }
+nav a:hover, nav a.active { background-color: #fffaf0; transform: translateY(-1px); }
+.hamburger { display: none; flex-direction: column; cursor: pointer; gap: 5px; padding: 5px; background-color: #7851a9; border-radius: 4px; }
+.hamburger div { width: 25px; height: 3px; background-color: #fffaf0; border-radius: 2px; }
+.mobile-menu { display: flex; flex-direction: column; max-height: 0; opacity: 0; overflow: hidden; transition: all 0.4s ease; position: absolute; top: 70px; right: 10px; background-color: #e8d4f3; border: 1px solid #7851a9; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); width: calc(100% - 20px); }
+.mobile-menu.active { max-height: 300px; opacity: 1; padding: 10px 0; }
+@media (max-width: 768px) { nav { display: none; } .hamburger { display: flex; } .mobile-menu a { padding: 10px 20px; color: #7851a9; font-weight: 600; } .mobile-menu a:hover, .mobile-menu a.active { background-color: #fffaf0; } }
+.feature-card { background: white; border: 1px solid #e8d4f3; border-radius: 12px; padding: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); transition: transform 0.3s, box-shadow 0.3s; }
+.feature-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(120,81,169,0.2); border-color: #7851a9; }
+#installAppBtn { display: none; position: fixed; bottom: 20px; right: 20px; background-color: #7851a9; color: white; border: none; border-radius: 30px; padding: 10px 20px; font-weight: bold; box-shadow: 0 4px 8px rgba(0,0,0,0.2); cursor: pointer; z-index: 1000; }
+#installAppBtn:hover { background-color: #5a3a7c; }
+</style>
 </head>
 <body>
 
@@ -287,76 +122,39 @@
   <p class="text-base text-justify">With a strong foundation in core Physics and a passion for teaching, I founded <b>Chronex Classes</b> to help <b>Class 11 & 12 students</b> develop real conceptual understanding and problem-solving skills.</p>
 </main>
 
-<footer>
-  &copy; <span id="year"></span> Chronex Classes. All rights reserved.
-</footer>
-
+<button id="installAppBtn">Install App</button>
+<footer class="text-center bg-[#7851a9] text-white p-4 mt-10">&copy; <span id="year"></span> Chronex Classes</footer>
 <script>
-  // Global variable to store the A2HS prompt event
-  let deferredPrompt;
-  const installButtonDesktop = document.getElementById('installButtonDesktop');
-  const installButtonMobile = document.getElementById('installButtonMobile');
-  const mobileInstallItem = document.getElementById('installItemMobile');
-
-  function toggleMenu() {
-    document.getElementById('mobileMenu').classList.toggle('active');
-    document.querySelector('.hamburger').classList.toggle('open');
-  }
-  
-  // Set current year in footer
-  document.getElementById('year').textContent = new Date().getFullYear();
-
-  // --- PWA Install Logic (A2HS) ---
-
-  window.addEventListener('beforeinstallprompt', (e) => {
-    // Prevent the default browser prompt (we control it now)
-    e.preventDefault();
-    // Stash the event so it can be triggered later
-    deferredPrompt = e;
-    
-    // Show the custom install buttons
-    installButtonDesktop.classList.remove('hidden');
-    mobileInstallItem.classList.remove('hidden');
-
-    console.log('✅ beforeinstallprompt event captured. Install button shown.');
-  });
-
-  function handleInstallClick() {
-    if (deferredPrompt) {
-      // Hide the custom buttons immediately
-      installButtonDesktop.classList.add('hidden');
-      mobileInstallItem.classList.add('hidden');
-      
-      // Show the native browser prompt
-      deferredPrompt.prompt();
-      
-      // Wait for the user to respond to the prompt
-      deferredPrompt.userChoice.then((choiceResult) => {
-        if (choiceResult.outcome === 'accepted') {
-          console.log('User accepted the A2HS prompt');
-        } else {
-          console.log('User dismissed the A2HS prompt');
-        }
-        // The prompt can't be used again
-        deferredPrompt = null;
-      });
-    }
-  }
-
-  installButtonDesktop.addEventListener('click', handleInstallClick);
-  installButtonMobile.addEventListener('click', handleInstallClick);
+document.getElementById('year').textContent = new Date().getFullYear();
+let deferredPrompt;
+const installBtn = document.getElementById('installAppBtn');
 
 
-  // Service Worker Registration
-  // Note: Using './sw.js' assumes the Service Worker file is in the root directory.
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./sw.js')
-        .then(reg => console.log('✅ Service Worker Registered', reg))
-        .catch(error => console.error('❌ Service Worker Registration Failed:', error));
-    });
-  }
+window.addEventListener('beforeinstallprompt', (e) => {
+e.preventDefault();
+deferredPrompt = e;
+installBtn.style.display = 'block';
+console.log('✅ beforeinstallprompt event triggered');
+});
+
+
+installBtn.addEventListener('click', async () => {
+if (!deferredPrompt) return;
+deferredPrompt.prompt();
+const { outcome } = await deferredPrompt.userChoice;
+console.log(`User response: ${outcome}`);
+deferredPrompt = null;
+installBtn.style.display = 'none';
+});
+
+
+if ('serviceWorker' in navigator) {
+window.addEventListener('load', () => {
+navigator.serviceWorker.register('sw.js')
+.then(reg => console.log('✅ Service Worker registered:', reg))
+.catch(err => console.error('❌ SW registration failed:', err));
+});
+}
 </script>
-
 </body>
 </html>
