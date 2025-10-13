@@ -3,7 +3,7 @@
 const CACHE_NAME = 'chronex-classes-cache-v1';
 const urlsToCache = [
   '/',
-  '/Home.html',
+  '/index.html',
   '/Courses.html',
   '/Resources.html',
   '/Contact.html',
@@ -76,7 +76,7 @@ self.addEventListener('fetch', event => {
         // If the network fails, and the request is for a page, serve a fallback.
         // This is a basic example. You might want to have a dedicated offline.html page.
         if (event.request.mode === 'navigate') {
-          return caches.match('/Home.html');
+          return caches.match('/index.html');
         }
       })
     );
