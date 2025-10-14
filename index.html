@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#e8d4f3">
-  <link rel="manifest" href="manifest.json">
+  <link rel="Manifest" href="Manifest.json">
   <meta name="msapplication-TileColor" content="#e8d4f3">
   <!-- Corrected Icon Path -->
   <link rel="icon" type="image/png" href="Logo%20(2).png" />
@@ -195,6 +195,8 @@
     .cta-button:active {
       transform: scale(0.98);
     }
+     /* Hide install button by default */
+     #installAppBtn { display: none; }
   </style>
 </head>
 <body>
@@ -236,9 +238,9 @@
   <p class="text-center text-lg mb-8">Your gateway to mastering <b>Physics</b> with clarity, confidence, and competitive edge.</p>
 
   <div class="text-center mb-10">
-    <a href="contact.html" class="cta-button inline-block bg-[#7851a9] text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-[#5a3a7c] text-xl cta-pulse">
-      Enroll Now & Start Your Journey
-    </a>
+  <a href="contact.html" class="cta-button inline-block bg-[#7851a9] text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-[#5a3a7c] text-xl cta-pulse">
+    Enroll Now & Start Your Journey
+  </a>
   </div>
 
 <div class="text-center mb-10">
@@ -288,38 +290,40 @@
 </main>
 
 <button id="installAppBtn">Install App</button>
-<footer class="text-center bg-[#7851a9] text-white p-4 mt-10">&copy; <span id="year"></span> Chronex Classes</footer>
-<script>
-document.getElementById('year').textContent = new Date().getFullYear();
-let deferredPrompt;
-const installBtn = document.getElementById('installAppBtn');
+
+  <footer class="text-center bg-[#7851a9] text-white p-4 mt-10">&copy; <span id="year"></span> Chronex Classes</footer>
+
+  <script>
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    let deferredPrompt;
+    const installBtn = document.getElementById('installAppBtn');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installBtn.style.display = 'inline-block';
+      console.log('✅ beforeinstallprompt event triggered');
+    });
+
+    installBtn.addEventListener('click', async () => {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      console.log(`User response: ${outcome}`);
+      deferredPrompt = null;
+      installBtn.style.display = 'none';
+    });
 
 
-window.addEventListener('beforeinstallprompt', (e) => {
-e.preventDefault();
-deferredPrompt = e;
-installBtn.style.display = 'block';
-console.log('✅ beforeinstallprompt event triggered');
-});
-
-
-installBtn.addEventListener('click', async () => {
-if (!deferredPrompt) return;
-deferredPrompt.prompt();
-const { outcome } = await deferredPrompt.userChoice;
-console.log(`User response: ${outcome}`);
-deferredPrompt = null;
-installBtn.style.display = 'none';
-});
-
-
-if ('serviceWorker' in navigator) {
-window.addEventListener('load', () => {
-navigator.serviceWorker.register('sw.js')
-.then(reg => console.log('✅ Service Worker registered:', reg))
-.catch(err => console.error('❌ SW registration failed:', err));
-});
-}
-</script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(reg => console.log('✅ Service Worker registered:', reg.scope))
+          .catch(err => console.error('❌ SW registration failed:', err));
+      });
+    }
+  </script>
 </body>
 </html>

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Chronex Classes - Units & Measurements</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#e8d4f3">
+  <link rel="manifest" href="manifest.json">
+  <meta name="msapplication-TileColor" content="#e8d4f3">
+  <!-- Corrected Icon Path -->
+  <link rel="icon" type="image/png" href="Logo%20(2).png" />
+  
+  <!-- Load Tailwind CSS for modern, responsive styling -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Custom CSS for base styles and layout */
+    body {
+      background-color: #fffaf0;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    /* Header styles */
+    header {
+      background-color: #e8d4f3;
+      padding: 10px 20px 6px 20px;
+      margin: 10px 10px 0 10px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      transition: all 0.3s ease-in-out; 
+    }
+    header img {
+      height: 50px;
+      background-color: #7851a9; 
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      transition: transform 0.2s;
+    }
+    header img:hover { transform: scale(1.05); }
+
+    header h2 {
+      margin: 0 0 0 10px;
+      font-size: 22px;
+      font-weight: bold;
+      color: #7851a9;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #7851a9;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 6px;
+      transition: background-color 0.2s, transform 0.2s;
+    }
+
+    nav a:hover,
+    nav a.active {
+      background-color: #fffaf0;
+      transform: translateY(-1px);
+    }
+
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+      padding: 5px;
+      border-radius: 4px;
+      background-color: #7851a9;
+      transition: background-color 0.3s;
+    }
+
+    .hamburger div {
+      width: 25px;
+      height: 3px;
+      background-color: #fffaf0;
+      border-radius: 2px;
+      transition: all 0.3s ease-in-out;
+    }
+    
+    .hamburger.open div:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .hamburger.open div:nth-child(2) { opacity: 0; }
+    .hamburger.open div:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: flex;
+      flex-direction: column;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out; 
+      position: absolute;
+      top: 70px;
+      right: 10px;
+      background-color: #e8d4f3;
+      border: 1px solid #7851a9;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      width: calc(100% - 20px);
+      z-index: 999;
+      padding: 0;
+    }
+    
+    .mobile-menu.active {
+      max-height: 300px;
+      opacity: 1;
+      padding: 10px 0;
+    }
+
+    @media (max-width: 768px) {
+      nav { display: none; }
+      .hamburger { display: flex; }
+      .mobile-menu a {
+        padding: 10px 20px;
+        color: #7851a9;
+        text-decoration: none;
+        font-weight: 600;
+        transition: background-color 0.2s, padding-left 0.2s;
+      }
+      .mobile-menu a:hover,
+      .mobile-menu a.active {
+        background-color: #fffaf0;
+        padding-left: 25px;
+      }
+    }
+
+    main.container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 30px 20px;
+    }
+
+    footer {
+      background-color: #7851a9;
+      color: white;
+      text-align: center;
+      padding: 12px;
+      margin-top: 40px;
+      font-size: 14px;
+    }
+
+        /* Card Custom Styles */
+        .study-card {
+            background-color: white;
+            border: 1px solid #e8d4f3;
+            border-top: 4px solid #7851a9; /* Primary color accent on top */
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(120, 81, 169, 0.1), 0 4px 6px -2px rgba(120, 81, 169, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .study-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(120, 81, 169, 0.2), 0 8px 10px -6px rgba(120, 81, 169, 0.1);
+        }
+        .card-title {
+            color: #7851a9;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+  <div class="flex items-center">
+    <!-- Standardized placeholder logo -->
+    <img src="Logo%20(2).png" alt="Chronex Classes Logo" />
+    <h2>Chronex Classes</h2>
+  </div>
+
+  <div class="hamburger" onclick="toggleMenu()">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+
+  <!-- Desktop Nav with corrected links -->
+  <nav>
+    <a href="Class 11 2027-2028 chapters.html">Chapters</a>
+  </nav>
+
+  <!-- Mobile Dropdown with corrected links -->
+  <div id="mobileMenu" class="mobile-menu">
+    <a href="Class 11 2027-2028 chapters.html">Chapters</a>
+  </div>
+</header>
+
+<main class="max-w-6xl mx-auto p-4 sm:p-6 mt-6">
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-[#7851a9] mb-8 text-center border-b-4 border-[#e8d4f3] pb-3">
+        Units & Measurements
+    </h1>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+
+
+         <div class="relative p-6 flex flex-col items-start bg-white rounded-xl shadow-lg hover:shadow-2xl transition duration-300" style="border-top: 5px solid #7851a9;">
+
+  <label class="absolute top-2 right-2 cursor-pointer flex items-center justify-center">
+    <input type="checkbox" class="peer hidden" />
+    <div class="w-6 h-6 rounded-full border-2 border-[#7851a9] flex items-center justify-center transition duration-200 peer-checked:bg-green-500 peer-checked:border-green-500">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-white hidden peer-checked:block" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 00-1.414 0L8 12.586 4.707 9.293A1 1 0 003.293 10.707l4 4a1 1 0 001.414 0l8-8a1 1 0 000-1.414z" clip-rule="evenodd" />
+      </svg>
+    </div>
+  </label>
+
+  <!-- Thumbnail -->
+  <div class="w-full aspect-video rounded-lg overflow-hidden mb-4 shadow-md transition duration-300 transform hover:shadow-xl">
+    <img src="https://raw.githubusercontent.com/chronex-classes/_chronex-core_assets/main/BM-1.png"
+         onerror="this.onerror=null;this.src='https://placehold.co/480x270/7851A9/FFFFFF?text=Thumbnail+Missing';"
+         alt="BM-1 Thumbnail from GitHub"
+         class="w-full h-full object-cover transition duration-300 hover:scale-[1.05]" />
+  </div>
+
+  <!-- Lecture title -->
+  <h2 class="text-xl font-bold text-[#7851a9] mb-2 leading-tight">Lecture 01:</h2>
+
+  <!-- Description -->
+  <p class="text-gray-700 text-sm text-justify mb-4 flex-grow">
+    This video was published on June 18, 2024.
+  </p>
+
+  <!-- Watch button -->
+  <a href="https://youtu.be/gN0S21oOlAg" target="_blank"
+     class="w-full py-3 bg-[#7851a9] text-white font-bold rounded-lg hover:bg-[#5a3a7c] transition duration-200 text-center block text-lg">
+     Watch Now
+  </a>
+</div>
+   
+
+ 
+          <div class="relative p-6 flex flex-col items-start bg-white rounded-xl shadow-lg hover:shadow-2xl transition duration-300" style="border-top: 5px solid #7851a9;">
+
+  <label class="absolute top-2 right-2 cursor-pointer flex items-center justify-center">
+    <input type="checkbox" class="peer hidden" />
+    <div class="w-6 h-6 rounded-full border-2 border-[#7851a9] flex items-center justify-center transition duration-200 peer-checked:bg-green-500 peer-checked:border-green-500">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-white hidden peer-checked:block" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 00-1.414 0L8 12.586 4.707 9.293A1 1 0 003.293 10.707l4 4a1 1 0 001.414 0l8-8a1 1 0 000-1.414z" clip-rule="evenodd" />
+      </svg>
+    </div>
+  </label>
+
+  <!-- Thumbnail -->
+  <div class="w-full aspect-video rounded-lg overflow-hidden mb-4 shadow-md transition duration-300 transform hover:shadow-xl">
+    <img src="https://raw.githubusercontent.com/chronex-classes/_chronex-core_assets/main/BM-2.png"
+         onerror="this.onerror=null;this.src='https://placehold.co/480x270/7851A9/FFFFFF?text=Thumbnail+Missing';"
+         alt="BM-2 Thumbnail from GitHub"
+         class="w-full h-full object-cover transition duration-300 hover:scale-[1.05]" />
+  </div>
+
+  <!-- Lecture title -->
+  <h2 class="text-xl font-bold text-[#7851a9] mb-2 leading-tight">Lecture 02:</h2>
+
+  <!-- Description -->
+  <p class="text-gray-700 text-sm text-justify mb-4 flex-grow">
+    This video was published on June 22, 2024.
+  </p>
+
+  <!-- Watch button -->
+  <a href="https://youtu.be/gN0S21oOlAg" target="_blank"
+     class="w-full py-3 bg-[#7851a9] text-white font-bold rounded-lg hover:bg-[#5a3a7c] transition duration-200 text-center block text-lg">
+     Watch Now
+  </a>
+</div>
+
+
+
+    </div>
+</main>
+   
+     <!-- Footer -->
+    <footer>
+        &copy; <span id="year"></span> Chronex Classes. All rights reserved.
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('mobileMenu').classList.toggle('active');
+            document.querySelector('.hamburger').classList.toggle('open');
+        }
+        
+        // Set current year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Service Worker Registration placeholder (for completeness, matching other files)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                // Ensure the path is correct if this file is in the root
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('✅ Study.html Service Worker Registered', reg))
+                    .catch(err => console.log('❌ Study.html Service Worker Registration failed: ', err));
+            });
+        }
+    </script>
+</body>
+</html>
