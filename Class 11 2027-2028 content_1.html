@@ -176,66 +176,82 @@
     }
   });
 
-  function openFullscreen(videoId, lectureId) {
-    const player = document.getElementById('fullscreen-player');
-    const iframeContainer = document.getElementById('video-iframe-container');
+function openFullscreen(videoId, lectureId) {
+  const player = document.getElementById('fullscreen-player');
+  const iframeContainer = document.getElementById('video-iframe-container');
 
-    // Stop any existing interval
-    if(progressInterval) clearInterval(progressInterval);
+  if(progressInterval) clearInterval(progressInterval);
 
-    const lastProgress = progressData[lectureId] || {percent:0, time:0};
-    const embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&enablejsapi=1&controls=1&showinfo=0&iv_load_policy=3&disablekb=1&playlist=${videoId}&start=${Math.floor(lastProgress.time)}`;
-    
-    iframeContainer.innerHTML = `<iframe id='ytplayer' src='${embedUrl}' frameborder='0' allow='autoplay; encrypted-media' allowfullscreen></iframe>`;
-    player.classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
+  const lastProgress = progressData[lectureId] || {percent:0, time:0};
+  const embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&enablejsapi=1&controls=1&showinfo=0&iv_load_policy=3&disablekb=1&playlist=${videoId}&start=${Math.floor(lastProgress.time)}`;
 
-    if (screen.orientation && screen.orientation.lock) {
+  // Inject iframe inside wrapper
+  iframeContainer.innerHTML = `
+    <div class="video-wrapper">
+      <iframe id='ytplayer' src='${embedUrl}' frameborder='0' allow='autoplay; encrypted-media' allowfullscreen></iframe>
+    </div>
+  `;
+
+  player.classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+
+  // ✅ Request fullscreen on the overlay
+  if (player.requestFullscreen) {
+    player.requestFullscreen();
+  } else if (player.webkitRequestFullscreen) { // Safari
+    player.webkitRequestFullscreen();
+  } else if (player.msRequestFullscreen) { // IE/Edge
+    player.msRequestFullscreen();
+  }
+
+  // ✅ Try to lock orientation to landscape
+  if (screen.orientation && screen.orientation.lock) {
     screen.orientation.lock("landscape").catch(err => {
       console.log("Orientation lock not supported:", err);
     });
-    }
+  }
 
-    if(!window.YT){
-      const tag = document.createElement('script');
-      tag.src = 'https://www.youtube.com/iframe_api';
-      document.body.appendChild(tag);
-    }
+  // ✅ YouTube API setup (same as before)
+  if(!window.YT){
+    const tag = document.createElement('script');
+    tag.src = 'https://www.youtube.com/iframe_api';
+    document.body.appendChild(tag);
+  }
 
-    window.onYouTubeIframeAPIReady = function(){
-      const ytPlayer = new YT.Player('ytplayer', {
-        events: {
-          'onStateChange': function(event){
-            const videoDuration = event.target.getDuration();
-            if(event.data === YT.PlayerState.PLAYING){
-              progressInterval = setInterval(() => {
-                const currentTime = event.target.getCurrentTime();
-                const percent = Math.round((currentTime / videoDuration) * 100);
-                const progressBar = document.getElementById('progressBar'+lectureId);
-                const progressText = document.getElementById('progressText'+lectureId);
-                const checkbox = document.querySelector(`.lecture-checkbox[data-lecture='${lectureId}']`);
+  window.onYouTubeIframeAPIReady = function(){
+    const ytPlayer = new YT.Player('ytplayer', {
+      events: {
+        'onStateChange': function(event){
+          const videoDuration = event.target.getDuration();
+          if(event.data === YT.PlayerState.PLAYING){
+            progressInterval = setInterval(() => {
+              const currentTime = event.target.getCurrentTime();
+              const percent = Math.round((currentTime / videoDuration) * 100);
+              const progressBar = document.getElementById('progressBar'+lectureId);
+              const progressText = document.getElementById('progressText'+lectureId);
+              const checkbox = document.querySelector(\`.lecture-checkbox[data-lecture='\${lectureId}']\`);
 
-                if(progressBar) progressBar.style.width = percent + '%';
-                if(progressText) progressText.textContent = percent + '% Watched';
+              if(progressBar) progressBar.style.width = percent + '%';
+              if(progressText) progressText.textContent = percent + '% Watched';
 
-                progressData[lectureId] = {percent: percent, time: currentTime};
-                localStorage.setItem('chronex_video_progress', JSON.stringify(progressData));
+              progressData[lectureId] = {percent: percent, time: currentTime};
+              localStorage.setItem('chronex_video_progress', JSON.stringify(progressData));
 
-                if(checkbox && percent >= 100){
-                  checkbox.checked = true;
-                  checkbox.closest('.study-card').classList.add('completed');
-                }
+              if(checkbox && percent >= 100){
+                checkbox.checked = true;
+                checkbox.closest('.study-card').classList.add('completed');
+              }
 
-                if(percent >= 100) clearInterval(progressInterval);
-              }, 1000);
-            } else {
-              clearInterval(progressInterval);
-            }
+              if(percent >= 100) clearInterval(progressInterval);
+            }, 1000);
+          } else {
+            clearInterval(progressInterval);
           }
         }
-      });
-    }
+      }
+    });
   }
+}
 
   function closeFullscreen() {
     const player = document.getElementById('fullscreen-player');
@@ -254,3 +270,4 @@
 
 </body>
 </html>
+
