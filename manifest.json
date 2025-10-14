@@ -1,0 +1,26 @@
+{
+  "name": "Chronex Classes",
+  "short_name": "Chronex Classes", 
+  "description": "Master Physics with clarity and confidence at Chronex Classes – guided by Arko Das for WBCHSE and JEE aspirants.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#fffaf0",
+  "theme_color": "#e8d4f3",
+  "icons": [
+    {
+      // Changed 'Logo (2).png' to 'Logo_2.png' (or ensure the filename matches exactly on your server)
+      "src": "Logo_2.png?v=20251015", 
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "Logo_2.png?v=20251015",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

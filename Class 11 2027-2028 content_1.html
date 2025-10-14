@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Chronex Classes - Physical World</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#e8d4f3">
+  <link rel="manifest" href="manifest.json">
+  <meta name="msapplication-TileColor" content="#e8d4f3">
+  <link rel="icon" type="image/png" href="Logo_2.png?v=20251015" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { background-color: #fffaf0; font-family: 'Inter', sans-serif; margin: 0; padding: 0; color: #333; }
+    header { background-color: #e8d4f3; padding: 10px 20px 6px 20px; margin: 10px 10px 0 10px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; position: sticky; top: 0; z-index: 1000; transition: all 0.3s ease-in-out; }
+    header img { height: 50px; background-color: #7851a9; border-radius: 50%; width: 50px; transition: transform 0.2s; }
+    header img:hover { transform: scale(1.05); }
+    header h2 { margin: 0 0 0 10px; font-size: 22px; font-weight: bold; color: #7851a9; }
+    nav { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+    nav a { text-decoration: none; color: #7851a9; font-weight: 600; padding: 6px 14px; border-radius: 6px; transition: background-color 0.2s, transform 0.2s; }
+    nav a:hover, nav a.active { background-color: #fffaf0; transform: translateY(-1px); }
+    .hamburger { display: none; flex-direction: column; cursor: pointer; gap: 5px; padding: 5px; border-radius: 4px; background-color: #7851a9; transition: background-color 0.3s; }
+    .hamburger div { width: 25px; height: 3px; background-color: #fffaf0; border-radius: 2px; transition: all 0.3s ease-in-out; }
+    .hamburger.open div:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .hamburger.open div:nth-child(2) { opacity: 0; }
+    .hamburger.open div:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+    .mobile-menu { display: flex; flex-direction: column; max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out; position: absolute; top: 70px; right: 10px; background-color: #e8d4f3; border: 1px solid #7851a9; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); width: calc(100% - 20px); z-index: 999; padding: 0; }
+    .mobile-menu.active { max-height: 300px; opacity: 1; padding: 10px 0; }
+    @media (max-width: 768px) { nav { display: none; } .hamburger { display: flex; } .mobile-menu a { padding: 10px 20px; color: #7851a9; text-decoration: none; font-weight: 600; transition: background-color 0.2s, padding-left 0.2s; } .mobile-menu a:hover, .mobile-menu a.active { background-color: #fffaf0; padding-left: 25px; } }
+    .progress-bar-container { background: #f3eafc; border-radius: 20px; overflow: hidden; height: 14px; margin-top: 10px; }
+    .progress-bar { background: linear-gradient(90deg, #7851a9, #5a3a7c); height: 100%; width: 0%; transition: width 0.5s ease-in-out; }
+    .progress-text { text-align: center; color: #5a3a7c; font-weight: 600; margin-top: 8px; }
+    .study-card.completed { border-top-color: #16a34a !important; box-shadow: 0 0 20px rgba(34,197,94,0.3); transition: all 0.3s ease-in-out; }
+    footer { background-color: #7851a9; color: white; text-align: center; padding: 12px; margin-top: 40px; font-size: 14px; }
+    .video-container { width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; }
+    .close-btn { position: absolute; top: 10px; right: 10px; font-size: 2rem; color: white; background: rgba(0,0,0,0.5); border: none; border-radius: 50%; width: 50px; height: 50px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.3s; z-index: 10001; }
+    .close-btn:hover { background: rgba(0,0,0,0.7); }
+    iframe { width: 95vw; height: 90vh; border-radius: 12px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="flex items-center">
+    <img src="Logo_2.png?v=20251015" alt="Chronex Classes Logo" />
+    <h2>Chronex Classes</h2>
+  </div>
+  <div class="hamburger" onclick="toggleMenu()">
+    <div></div><div></div><div></div>
+  </div>
+  <nav><a href="Class 11 2027-2028 chapters.html">Chapters</a></nav>
+  <div id="mobileMenu" class="mobile-menu">
+    <a href="Class 11 2027-2028 chapters.html">Chapters</a>
+  </div>
+</header>
+
+<main class="max-w-6xl mx-auto p-4 sm:p-6 mt-6">
+  <h1 class="text-3xl sm:text-4xl font-extrabold text-[#7851a9] mb-3 text-center border-b-4 border-[#e8d4f3] pb-3">Physical World</h1>
+
+  <div id="lectureContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+
+    <!-- LECTURE 1 -->
+    <div class="study-card relative p-6 flex flex-col items-start bg-white rounded-xl shadow-lg transition duration-300" data-lecture-id="1" style="border-top: 5px solid #7851a9;">
+      <label class="absolute top-2 right-2 cursor-pointer flex items-center justify-center">
+        <input type="checkbox" class="peer hidden lecture-checkbox" data-lecture="1"/>
+        <div class="w-6 h-6 rounded-full border-2 border-[#7851a9] flex items-center justify-center transition duration-200 peer-checked:bg-green-500 peer-checked:border-green-500">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-white hidden peer-checked:block" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 00-1.414 0L8 12.586 4.707 9.293A1 1 0 003.293 10.707l4 4a1 1 0 001.414 0l8-8a1 1 0 000-1.414z" clip-rule="evenodd"/>
+          </svg>
+        </div>
+      </label>
+      <div class="w-full aspect-video rounded-lg overflow-hidden mb-4 shadow-md">
+        <img src="https://raw.githubusercontent.com/chronex-classes/_chronex-core_assets/main/UM-1.png" alt="UM-1 Thumbnail" class="w-full h-full object-cover transition duration-300 hover:scale-[1.05]" />
+      </div>
+      <h2 class="text-xl font-bold text-[#7851a9] mb-2 leading-tight">Lecture 01:</h2>
+      <p class="text-gray-700 text-sm text-justify mb-2 flex-grow">This video was published on June 16, 2024.</p>
+      <div class="progress-bar-container">
+        <div id="progressBar1" class="progress-bar"></div>
+      </div>
+      <p id="progressText1" class="progress-text">0% Watched</p>
+      <button onclick="openFullscreen('gN0S21oOlAg', 1)" class="w-full py-3 bg-[#7851a9] text-white font-bold rounded-lg hover:bg-[#5a3a7c] transition duration-200 text-lg mt-2">Watch Now</button>
+    </div>
+
+    <!-- LECTURE 2 -->
+    <div class="study-card relative p-6 flex flex-col items-start bg-white rounded-xl shadow-lg transition duration-300" data-lecture-id="2" style="border-top: 5px solid #7851a9;">
+      <label class="absolute top-2 right-2 cursor-pointer flex items-center justify-center">
+        <input type="checkbox" class="peer hidden lecture-checkbox" data-lecture="2"/>
+        <div class="w-6 h-6 rounded-full border-2 border-[#7851a9] flex items-center justify-center transition duration-200 peer-checked:bg-green-500 peer-checked:border-green-500">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-white hidden peer-checked:block" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 00-1.414 0L8 12.586 4.707 9.293A1 1 0 003.293 10.707l4 4a1 1 0 001.414 0l8-8a1 1 0 000-1.414z" clip-rule="evenodd"/>
+          </svg>
+        </div>
+      </label>
+      <div class="w-full aspect-video rounded-lg overflow-hidden mb-4 shadow-md">
+        <img src="https://raw.githubusercontent.com/chronex-classes/_chronex-core_assets/main/UM-2.png" alt="UM-2 Thumbnail" class="w-full h-full object-cover transition duration-300 hover:scale-[1.05]" />
+      </div>
+      <h2 class="text-xl font-bold text-[#7851a9] mb-2 leading-tight">Lecture 02:</h2>
+      <p class="text-gray-700 text-sm text-justify mb-2 flex-grow">This video was published on June 20, 2024.</p>
+      <div class="progress-bar-container">
+        <div id="progressBar2" class="progress-bar"></div>
+      </div>
+      <p id="progressText2" class="progress-text">0% Watched</p>
+      <button onclick="openFullscreen('aHn6gQPcAWQ', 2)" class="w-full py-3 bg-[#7851a9] text-white font-bold rounded-lg hover:bg-[#5a3a7c] transition duration-200 text-lg mt-2">Watch Now</button>
+    </div>
+
+    <!-- LECTURE 3 -->
+    <div class="study-card relative p-6 flex flex-col items-start bg-white rounded-xl shadow-lg transition duration-300" data-lecture-id="3" style="border-top: 5px solid #7851a9;">
+      <label class="absolute top-2 right-2 cursor-pointer flex items-center justify-center">
+        <input type="checkbox" class="peer hidden lecture-checkbox" data-lecture="3"/>
+        <div class="w-6 h-6 rounded-full border-2 border-[#7851a9] flex items-center justify-center transition duration-200 peer-checked:bg-green-500 peer-checked:border-green-500">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-white hidden peer-checked:block" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 00-1.414 0L8 12.586 4.707 9.293A1 1 0 003.293 10.707l4 4a1 1 0 001.414 0l8-8a1 1 0 000-1.414z" clip-rule="evenodd"/>
+          </svg>
+        </div>
+      </label>
+      <div class="w-full aspect-video rounded-lg overflow-hidden mb-4 shadow-md">
+        <img src="https://raw.githubusercontent.com/chronex-classes/_chronex-core_assets/main/UM-2.png" alt="UM-3 Thumbnail" class="w-full h-full object-cover transition duration-300 hover:scale-[1.05]" />
+      </div>
+      <h2 class="text-xl font-bold text-[#7851a9] mb-2 leading-tight">Lecture 03:</h2>
+      <p class="text-gray-700 text-sm text-justify mb-2 flex-grow">This video was published on June 25, 2024.</p>
+      <div class="progress-bar-container">
+        <div id="progressBar3" class="progress-bar"></div>
+      </div>
+      <p id="progressText3" class="progress-text">0% Watched</p>
+      <button onclick="openFullscreen('H3wb6QJTMb0', 3)" class="w-full py-3 bg-[#7851a9] text-white font-bold rounded-lg hover:bg-[#5a3a7c] transition duration-200 text-lg mt-2">Watch Now</button>
+    </div>
+
+  </div>
+</main>
+
+<div id="fullscreen-player" class="fixed inset-0 z-[9999] bg-black bg-opacity-90 hidden">
+  <div class="video-container relative" onclick="event.stopPropagation()">
+    <button class="close-btn" onclick="closeFullscreen()">&times;</button>
+    <div id="video-iframe-container" class="w-full h-full"></div>
+  </div>
+</div>
+
+<footer>&copy; <span id="year"></span> Chronex Classes. All rights reserved.</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('active');
+    document.querySelector('.hamburger').classList.toggle('open');
+  }
+
+  const progressData = JSON.parse(localStorage.getItem('chronex_video_progress')) || {};
+  let progressInterval = null; // interval tracker
+
+  // Initialize progress bars and checkboxes
+  Object.keys(progressData).forEach(id => {
+    const data = progressData[id];
+    const percent = data.percent || 0;
+    const progressBar = document.getElementById('progressBar'+id);
+    const progressText = document.getElementById('progressText'+id);
+    const checkbox = document.querySelector(`.lecture-checkbox[data-lecture='${id}']`);
+    if(progressBar) progressBar.style.width = percent + '%';
+    if(progressText) progressText.textContent = percent + '% Watched';
+    if(percent >= 100 && checkbox){
+      checkbox.checked = true;
+      checkbox.closest('.study-card').classList.add('completed');
+    }
+  });
+
+  function openFullscreen(videoId, lectureId) {
+    const player = document.getElementById('fullscreen-player');
+    const iframeContainer = document.getElementById('video-iframe-container');
+
+    // Stop any existing interval
+    if(progressInterval) clearInterval(progressInterval);
+
+    const lastProgress = progressData[lectureId] || {percent:0, time:0};
+    const embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&enablejsapi=1&controls=1&showinfo=0&iv_load_policy=3&disablekb=1&playlist=${videoId}&start=${Math.floor(lastProgress.time)}`;
+    
+    iframeContainer.innerHTML = `<iframe id='ytplayer' src='${embedUrl}' frameborder='0' allow='autoplay; encrypted-media' allowfullscreen></iframe>`;
+    player.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+
+    if(!window.YT){
+      const tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      document.body.appendChild(tag);
+    }
+
+    window.onYouTubeIframeAPIReady = function(){
+      const ytPlayer = new YT.Player('ytplayer', {
+        events: {
+          'onStateChange': function(event){
+            const videoDuration = event.target.getDuration();
+            if(event.data === YT.PlayerState.PLAYING){
+              progressInterval = setInterval(() => {
+                const currentTime = event.target.getCurrentTime();
+                const percent = Math.round((currentTime / videoDuration) * 100);
+                const progressBar = document.getElementById('progressBar'+lectureId);
+                const progressText = document.getElementById('progressText'+lectureId);
+                const checkbox = document.querySelector(`.lecture-checkbox[data-lecture='${lectureId}']`);
+
+                if(progressBar) progressBar.style.width = percent + '%';
+                if(progressText) progressText.textContent = percent + '% Watched';
+
+                progressData[lectureId] = {percent: percent, time: currentTime};
+                localStorage.setItem('chronex_video_progress', JSON.stringify(progressData));
+
+                if(checkbox && percent >= 100){
+                  checkbox.checked = true;
+                  checkbox.closest('.study-card').classList.add('completed');
+                }
+
+                if(percent >= 100) clearInterval(progressInterval);
+              }, 1000);
+            } else {
+              clearInterval(progressInterval);
+            }
+          }
+        }
+      });
+    }
+  }
+
+  function closeFullscreen() {
+    const player = document.getElementById('fullscreen-player');
+    document.getElementById('video-iframe-container').innerHTML = '';
+    player.classList.add('hidden');
+    document.body.style.overflow = 'auto';
+    if(progressInterval) clearInterval(progressInterval);
+  }
+
+  document.addEventListener('keydown', e => {
+    if(e.key === 'Escape' && !document.getElementById('fullscreen-player').classList.contains('hidden')){
+      closeFullscreen();
+    }
+  });
+</script>
+
+</body>
+</html>

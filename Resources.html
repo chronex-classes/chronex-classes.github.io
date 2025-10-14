@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Chronex Classes - Resources</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#e8d4f3">
+  <link rel="manifest" href="manifest.json">
+  <meta name="msapplication-TileColor" content="#e8d4f3">
+  <!-- Corrected Icon Path -->
+  <link rel="icon" type="image/png" href="Logo_2.png?v=20251015" />
+  <!-- Load Tailwind CSS for modern, responsive styling -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-color: #fffaf0;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #333;
+      scroll-behavior: smooth;
+    }
+
+    header {
+      background-color: #e8d4f3;
+      padding: 10px 20px 6px 20px;
+      margin: 10px 10px 0 10px;
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      transition: all 0.3s ease-in-out; 
+    }
+
+    header img {
+      height: 50px;
+      background-color: #7851a9; 
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      transition: transform 0.2s;
+    }
+    header img:hover { transform: scale(1.05); }
+
+    header h2 {
+      margin: 0 0 0 10px;
+      font-size: 22px;
+      font-weight: bold;
+      color: #7851a9;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #7851a9;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 6px;
+      transition: background-color 0.2s, transform 0.2s;
+    }
+
+    nav a:hover,
+    nav a.active {
+      background-color: #fffaf0;
+      transform: translateY(-1px);
+    }
+    
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+      padding: 5px;
+      border-radius: 4px;
+      background-color: #7851a9;
+      transition: background-color 0.3s;
+    }
+
+    .hamburger div {
+      width: 25px;
+      height: 3px;
+      background-color: #fffaf0;
+      border-radius: 2px;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .hamburger.open div:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .hamburger.open div:nth-child(2) { opacity: 0; }
+    .hamburger.open div:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: flex;
+      flex-direction: column;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out; 
+      position: absolute;
+      top: 70px;
+      right: 10px;
+      background-color: #e8d4f3;
+      border: 1px solid #7851a9;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      width: calc(100% - 20px);
+      z-index: 999;
+      padding: 0;
+    }
+    
+    .mobile-menu.active {
+      max-height: 300px;
+      opacity: 1;
+      padding: 10px 0;
+    }
+    
+    @media (max-width: 768px) {
+      nav { display: none; }
+      .hamburger { display: flex; }
+      .mobile-menu a {
+        padding: 10px 20px;
+        color: #7851a9;
+        text-decoration: none;
+        font-weight: 600;
+        transition: background-color 0.2s, padding-left 0.2s;
+      }
+      .mobile-menu a:hover,
+      .mobile-menu a.active {
+        background-color: #fffaf0;
+        padding-left: 25px;
+      }
+    }
+
+    main.container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 30px 20px;
+    }
+
+    footer {
+      background-color: #7851a9;
+      color: white;
+      text-align: center;
+      padding: 12px;
+      margin-top: 40px;
+      font-size: 14px;
+    }
+    
+    .feature-card {
+      background-color: white;
+      border: 1px solid #e8d4f3;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, background-color 0.3s;
+      cursor: pointer;
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px); 
+      box-shadow: 0 10px 20px rgba(120, 81, 169, 0.2); 
+      border-color: #7851a9;
+      background-color: #f3effc;
+    }
+
+    .download-button {
+      display: inline-block;
+      margin-top: 15px;
+      background-color: #7851a9;
+      color: white;
+      font-weight: bold;
+      padding: 8px 15px;
+      border-radius: 8px;
+      text-decoration: none;
+      text-align: center;
+      transition: background-color 0.2s, transform 0.1s;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      width: 100%;
+    }
+    
+    .download-button:hover {
+        background-color: #5a3a7c;
+        transform: translateY(-1px);
+    }
+    
+    .download-button:active {
+      transform: scale(0.98);
+    }
+  </style>
+</head>
+<body>
+
+<header class="shadow-md">
+  <div class="flex items-center">
+    <!-- Standardized placeholder logo -->
+    <img src="Logo_2.png?v=20251015" alt="Chronex Classes Logo" />
+    <h2>Chronex Classes</h2>
+  </div>
+
+  <div class="hamburger" onclick="toggleMenu()">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+
+  <!-- Desktop Nav with corrected links -->
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="Resources.html" class="active">Resources</a>
+    <a href="Courses.html">Course Details</a>
+    <a href="Contact.html">Registration & Contact</a>
+  </nav>
+
+  <!-- Mobile Dropdown with corrected links -->
+  <div id="mobileMenu" class="mobile-menu">
+    <a href="index.html">Home</a>
+    <a href="Resources.html" class="active">Resources</a>
+    <a href="Courses.html">Course Details</a>
+    <a href="Contact.html">Registration & Contact</a>
+  </div>
+</header>
+
+<main class="container">
+  <h1 class="text-3xl sm:text-4xl text-center mt-2 mb-4 font-extrabold text-[#7851a9]">
+    Essential Physics Resources
+  </h1>
+  <p class="text-center text-lg mb-8">
+    Access our curated list of key textbooks and practice materials, completely free to support your learning journey.
+  </p>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+    
+    <div class="feature-card">
+      <div>
+        <h3 class="font-semibold text-xl text-[#7851a9] mb-1">⚛️ H. C. Verma – Concepts of Physics</h3>
+        <p class="text-sm text-gray-600">👉 <i>The definitive guide for building conceptual clarity and problem-solving intuition for JEE/NEET. (Volumes I & II)</i></p>
+      </div>
+      <a href="https://drive.google.com/open?id=1N1b_yF0l6r8i-34jJ7l4mD6cE_e9z5gG&usp=drive_fs" target="_blank" class="download-button">📥 Download PDF</a>
+    </div>
+
+    <div class="feature-card">
+      <div>
+        <h3 class="font-semibold text-xl text-[#7851a9] mb-1">📘 Resnick, Halliday, Walker</h3>
+        <p class="text-sm text-gray-600">👉 <i>Fundamentals of Physics: Internationally acclaimed for conceptual clarity and logical progression.</i></p>
+      </div>
+      <a href="https://drive.google.com/open?id=1M2Wl0oMISDrbV3J6BwG0ha-o0LGMxhsW&usp=drive_fs" target="_blank" class="download-button">📥 Download PDF</a>
+    </div>
+
+    <div class="feature-card">
+      <div>
+        <h3 class="font-semibold text-xl text-[#7851a9] mb-1">📝 S. K. Gupta – NCERT Exemplar</h3>
+        <p class="text-sm text-gray-600">👉 <i>Essential practice problems for mastering core concepts and securing excellent board scores.</i></p>
+      </div>
+      <a href="https://drive.google.com/open?id=13Oqg3TmZNhMn97FOuGVObkO7CinCujEM&usp=drive_fs" target="_blank" class="download-button">📥 Download PDF</a>
+    </div>
+
+    <div class="feature-card">
+      <div>
+        <h3 class="font-semibold text-xl text-[#7851a9] mb-1">📐 Schaum's Outline – Vector Analysis</h3>
+        <p class="text-sm text-gray-600">👉 <i>Your go-to guide for mastering vectors with step-by-step solved problems—a foundational skill.</i></p>
+      </div>
+      <a href="https://drive.google.com/open?id=1-74zpYBWVy1OD818ZY014ZIX62bX1tA3&usp=drive_fs" target="_blank" class="download-button">📥 Download PDF</a>
+    </div>
+    
+    <div class="feature-card">
+      <div>
+        <h3 class="font-semibold text-xl text-[#7851a9] mb-1">⚙️ Mechanics by D. S. Mathur</h3>
+        <p class="text-sm text-gray-600">👉 <i>A classical approach to Mechanics that builds core intuition and depth for university-level entrance.</i></p>
+      </div>
+      <a href="https://drive.google.com/open?id=13Oqg3TmZNhMn97FOuGVObkO7CinCujEM&usp=drive_fs" target="_blank" class="download-button">📥 Download PDF</a>
+    </div>
+    
+    <div class="feature-card">
+      <div>
+        <h3 class="font-semibold text-xl text-[#7851a9] mb-1">⭐️ JEE Advanced Mock Tests (2023-24)</h3>
+        <p class="text-sm text-gray-600">👉 <i>A collection of high-quality, full-length mock tests to practice time management and exam strategy.</i></p>
+      </div>
+      <a href="https://drive.google.com/open?id=13Oqg3TmZNhMn97FOuGVObkO7CinCujEM&usp=drive_fs" target="_blank" class="download-button">📥 Download PDF</a>
+    </div>
+
+  </div>
+
+  <p class="mt-12 text-center text-base leading-relaxed p-4 bg-[#e8d4f3] rounded-lg border border-[#7851a9]">
+    <span class="font-bold text-[#7851a9]">Note:</span> All materials are provided strictly for educational use. Please support the authors by purchasing physical copies if possible.
+  </p>
+</main>
+
+<footer>
+  &copy; <span id="year"></span> Chronex Classes. All rights reserved.
+</footer>
+
+<script>
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('active');
+    document.querySelector('.hamburger').classList.toggle('open');
+  }
+  // Set current year in footer
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
