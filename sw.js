@@ -1,12 +1,15 @@
-const CACHE_NAME = 'chronex-cache-v5'; // 💡 CHANGED: Incrementing cache version to force cache refresh
+// ✅ Versioned cache name
+const CACHE_NAME = 'chronex-cache-v5'; // bump this when making major changes
+
+// ✅ Core files to pre-cache (app shell)
 const urlsToCache = [
   './index.html',
   './manifest.json',
-  './Logo_2.png', // Rectified: Changed from 'Logo (2).png'
+  './Logo_2.png',
   './Study.html',
   './Resources.html',
   './Courses.html',
-  './Contact.html' 
+  './Contact.html'
 ];
 
 // ✅ Install Service Worker and cache essential files
@@ -19,17 +22,42 @@ self.addEventListener('install', (event) => {
   );
 });
 
-// ✅ Fetch requests - serve from cache first, fallback to network
+// ✅ Fetch requests
 self.addEventListener('fetch', (event) => {
+  const req = event.request;
+
+  // Network-first for HTML pages
+  if (req.mode === 'navigate' || req.destination === 'document') {
+    event.respondWith(
+      fetch(req)
+        .then((networkRes) => {
+          // Update cache with fresh HTML
+          return caches.open(CACHE_NAME).then((cache) => {
+            cache.put(req, networkRes.clone());
+            return networkRes;
+          });
+        })
+        .catch(() => {
+          // Fallback to cache if offline
+          return caches.match(req).then((cachedRes) => {
+            return cachedRes || caches.match('./index.html');
+          });
+        })
+    );
+    return;
+  }
+
+  // Cache-first for static assets
   event.respondWith(
-    caches.match(event.request)
-      .then((response) => response || fetch(event.request))
-      .catch(() => {
-        // Optional: offline fallback for navigation requests
-        if (event.request.mode === 'navigate') {
-          return caches.match('./index.html');
-        }
-      })
+    caches.match(req).then((cachedRes) => {
+      return cachedRes || fetch(req).then((networkRes) => {
+        // Cache new static assets
+        return caches.open(CACHE_NAME).then((cache) => {
+          cache.put(req, networkRes.clone());
+          return networkRes;
+        });
+      });
+    })
   );
 });
 
@@ -41,7 +69,7 @@ self.addEventListener('activate', (event) => {
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames.map((cacheName) => {
-          if (cacheWhitelist.indexOf(cacheName) === -1) {
+          if (!cacheWhitelist.includes(cacheName)) {
             console.log('🗑️ Deleting old cache:', cacheName);
             return caches.delete(cacheName);
           }
