@@ -12,7 +12,7 @@
     {
       // Changed 'Logo (2).png' to 'Logo_2.png' (or ensure the filename matches exactly on your server)
       "src": "Logo_2.png?v=20251015", 
-      "sizes": "192x192",
+      "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
     },
@@ -24,3 +24,4 @@
     }
   ]
 }
+
