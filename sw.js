@@ -1,4 +1,4 @@
-const CACHE_NAME = 'chronex-cache-v4'; // 💡 CHANGED: Incrementing cache version to force cache refresh
+const CACHE_NAME = 'chronex-cache-v5'; // 💡 CHANGED: Incrementing cache version to force cache refresh
 const urlsToCache = [
   './index.html',
   './manifest.json',
