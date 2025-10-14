@@ -50,7 +50,7 @@
 .close-btn {
   position: absolute;
   top: 30px;
-  right: 10px;
+  right: 6px;
   font-size: 2rem;
   color: white;
   background: rgba(0,0,0,0.5);
@@ -64,9 +64,16 @@
   justify-content: center;
   transition: background 0.3s;
   z-index: 10001;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
 }
 .close-btn:hover {
   background: rgba(0,0,0,0.7);
+}
+.show-close .close-btn {
+  opacity: 1;
+  pointer-events: auto;
 }
   </style>
 </head>
@@ -177,7 +184,11 @@
     document.getElementById('mobileMenu').classList.toggle('active');
     document.querySelector('.hamburger').classList.toggle('open');
   }
-
+document.getElementById('fullscreen-player').addEventListener('click', () => {
+  const player = document.getElementById('fullscreen-player');
+  player.classList.toggle('show-close');
+});
+  
   const progressData = JSON.parse(localStorage.getItem('chronex_video_progress')) || {};
   let progressInterval = null; // interval tracker
 
@@ -291,6 +302,7 @@ function openFullscreen(videoId, lectureId) {
 
 </body>
 </html>
+
 
 
 
