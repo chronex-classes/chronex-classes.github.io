@@ -180,12 +180,13 @@ function openFullscreen(videoId, lectureId) {
   const player = document.getElementById('fullscreen-player');
   const iframeContainer = document.getElementById('video-iframe-container');
 
-  if(progressInterval) clearInterval(progressInterval);
+  // Stop any existing interval
+  if (progressInterval) clearInterval(progressInterval);
 
-  const lastProgress = progressData[lectureId] || {percent:0, time:0};
+  const lastProgress = progressData[lectureId] || { percent: 0, time: 0 };
   const embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&enablejsapi=1&controls=1&showinfo=0&iv_load_policy=3&disablekb=1&playlist=${videoId}&start=${Math.floor(lastProgress.time)}`;
 
-  // Inject iframe inside wrapper
+  // Inject iframe
   iframeContainer.innerHTML = `
     <div class="video-wrapper">
       <iframe id='ytplayer' src='${embedUrl}' frameborder='0' allow='autoplay; encrypted-media' allowfullscreen></iframe>
@@ -195,7 +196,7 @@ function openFullscreen(videoId, lectureId) {
   player.classList.remove('hidden');
   document.body.style.overflow = 'hidden';
 
-  // ✅ Request fullscreen on the overlay
+  // ✅ Request fullscreen
   if (player.requestFullscreen) {
     player.requestFullscreen();
   } else if (player.webkitRequestFullscreen) { // Safari
@@ -204,45 +205,45 @@ function openFullscreen(videoId, lectureId) {
     player.msRequestFullscreen();
   }
 
-  // ✅ Try to lock orientation to landscape
+  // ✅ Try to lock orientation
   if (screen.orientation && screen.orientation.lock) {
     screen.orientation.lock("landscape").catch(err => {
       console.log("Orientation lock not supported:", err);
     });
   }
 
-  // ✅ YouTube API setup (same as before)
-  if(!window.YT){
+  // ✅ YouTube API setup
+  if (!window.YT) {
     const tag = document.createElement('script');
     tag.src = 'https://www.youtube.com/iframe_api';
     document.body.appendChild(tag);
   }
 
-  window.onYouTubeIframeAPIReady = function(){
+  window.onYouTubeIframeAPIReady = function () {
     const ytPlayer = new YT.Player('ytplayer', {
       events: {
-        'onStateChange': function(event){
+        'onStateChange': function (event) {
           const videoDuration = event.target.getDuration();
-          if(event.data === YT.PlayerState.PLAYING){
+          if (event.data === YT.PlayerState.PLAYING) {
             progressInterval = setInterval(() => {
               const currentTime = event.target.getCurrentTime();
               const percent = Math.round((currentTime / videoDuration) * 100);
-              const progressBar = document.getElementById('progressBar'+lectureId);
-              const progressText = document.getElementById('progressText'+lectureId);
-              const checkbox = document.querySelector(\`.lecture-checkbox[data-lecture='\${lectureId}']\`);
+              const progressBar = document.getElementById('progressBar' + lectureId);
+              const progressText = document.getElementById('progressText' + lectureId);
+              const checkbox = document.querySelector(`.lecture-checkbox[data-lecture='${lectureId}']`);
 
-              if(progressBar) progressBar.style.width = percent + '%';
-              if(progressText) progressText.textContent = percent + '% Watched';
+              if (progressBar) progressBar.style.width = percent + '%';
+              if (progressText) progressText.textContent = percent + '% Watched';
 
-              progressData[lectureId] = {percent: percent, time: currentTime};
+              progressData[lectureId] = { percent: percent, time: currentTime };
               localStorage.setItem('chronex_video_progress', JSON.stringify(progressData));
 
-              if(checkbox && percent >= 100){
+              if (checkbox && percent >= 100) {
                 checkbox.checked = true;
                 checkbox.closest('.study-card').classList.add('completed');
               }
 
-              if(percent >= 100) clearInterval(progressInterval);
+              if (percent >= 100) clearInterval(progressInterval);
             }, 1000);
           } else {
             clearInterval(progressInterval);
@@ -270,4 +271,5 @@ function openFullscreen(videoId, lectureId) {
 
 </body>
 </html>
+
 
