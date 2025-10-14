@@ -4,8 +4,8 @@
   <title>Chronex Classes - Home</title>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#e8d4f3">
-  <link rel="Manifest" href="Manifest.json">
   <meta name="msapplication-TileColor" content="#e8d4f3">
   <!-- Corrected Icon Path -->
   <link rel="icon" type="image/png" href="Logo%20(2).png" />
@@ -208,7 +208,7 @@
     <h2>Chronex Classes</h2>
   </div>
 
-  <div class="hamburger" onclick="toggleMenu()">
+  <div class="hamburger mobile-menu-button" onclick="toggleMenu()">
     <div></div>
     <div></div>
     <div></div>
@@ -238,7 +238,7 @@
   <p class="text-center text-lg mb-8">Your gateway to mastering <b>Physics</b> with clarity, confidence, and competitive edge.</p>
 
   <div class="text-center mb-10">
-  <a href="contact.html" class="cta-button inline-block bg-[#7851a9] text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-[#5a3a7c] text-xl cta-pulse">
+  <a href="Contact.html" class="cta-button inline-block bg-[#7851a9] text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-[#5a3a7c] text-xl cta-pulse">
     Enroll Now & Start Your Journey
   </a>
   </div>
@@ -289,41 +289,64 @@
   <p class="text-base text-justify">With a strong foundation in core Physics and a passion for teaching, I founded <b>Chronex Classes</b> to help <b>Class 11 & 12 students</b> develop real conceptual understanding and problem-solving skills.</p>
 </main>
 
-<button id="installAppBtn">Install App</button>
+  <footer class="text-center bg-[#7851a9] text-white p-4 mt-10">
+    &copy; <span id="year"></span> Chronex Classes
+  </footer>
 
-  <footer class="text-center bg-[#7851a9] text-white p-4 mt-10">&copy; <span id="year"></span> Chronex Classes</footer>
+  <!-- Install PWA Button -->
+  <button id="installBtn" class="hidden fixed bottom-20 right-5 bg-[#7851a9] text-white font-semibold px-4 py-2 rounded-full shadow-lg hover:bg-[#5a3a7c]">
+    Install App
+  </button>
+
+  <!-- Back to Top Button -->
+  <button onclick="window.scrollTo({top:0,behavior:'smooth'})" 
+    class="fixed bottom-5 right-5 bg-[#7851a9] text-white p-3 rounded-full shadow-lg hover:bg-[#5a3a7c]">
+    ⬆️
+  </button>
 
   <script>
-
+    // ✅ Dynamic year in footer
     document.getElementById('year').textContent = new Date().getFullYear();
 
+    // ✅ Mobile menu toggle function
+    function toggleMenu() {
+      const menu = document.getElementById('mobileMenu');
+      const hamburger = document.querySelector('.hamburger');
+      hamburger.classList.toggle('open');
+      menu.classList.toggle('active');
+    }
+
+    // ✅ Highlight active link
+    document.querySelectorAll('nav a, .mobile-menu a').forEach(link => {
+      if (link.href === window.location.href) {
+        link.classList.add('active');
+      }
+    });
+
+    // ✅ PWA install prompt
     let deferredPrompt;
-    const installBtn = document.getElementById('installAppBtn');
+    const installBtn = document.getElementById('installBtn');
 
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPrompt = e;
-      installBtn.style.display = 'inline-block';
-      console.log('✅ beforeinstallprompt event triggered');
+      installBtn.classList.remove('hidden');
     });
 
     installBtn.addEventListener('click', async () => {
-      if (!deferredPrompt) return;
+      installBtn.classList.add('hidden');
       deferredPrompt.prompt();
       const { outcome } = await deferredPrompt.userChoice;
-      console.log(`User response: ${outcome}`);
       deferredPrompt = null;
-      installBtn.style.display = 'none';
     });
 
-
+    // ✅ Register Service Worker
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
-          .then(reg => console.log('✅ Service Worker registered:', reg.scope))
-          .catch(err => console.error('❌ SW registration failed:', err));
-      });
+      navigator.serviceWorker.register('./sw.js').then(() => 
+        console.log('Service Worker Registered ✅')
+      );
     }
   </script>
 </body>
+
 </html>
