@@ -1,12 +1,12 @@
-const CACHE_NAME = 'chronex-cache-v2';
+const CACHE_NAME = 'chronex-cache-v3'; // Incrementing cache version is a good practice when changing files
 const urlsToCache = [
   './index.html',
   './manifest.json',
-  './Logo (2).png',
+  './Logo_2.png', // Rectified: Changed from 'Logo (2).png'
   './Study.html',
   './Resources.html',
   './Courses.html',
-  './Contact.html' // match capitalization in your HTML link
+  './Contact.html' 
 ];
 
 // ✅ Install Service Worker and cache essential files
@@ -25,7 +25,7 @@ self.addEventListener('fetch', (event) => {
     caches.match(event.request)
       .then((response) => response || fetch(event.request))
       .catch(() => {
-        // Optional: offline fallback
+        // Optional: offline fallback for navigation requests
         if (event.request.mode === 'navigate') {
           return caches.match('./index.html');
         }
@@ -39,13 +39,9 @@ self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) =>
       Promise.all(
-        cacheNames
-          .filter((name) => name !== CACHE_NAME)
-          .map((name) => {
-            console.log(`🗑️ Deleting old cache: ${name}`);
-            return caches.delete(name);
-          })
+        cacheNames.filter((cacheName) => cacheName !== CACHE_NAME)
+          .map((cacheName) => caches.delete(cacheName))
       )
-    ).then(() => self.clients.claim())
+    )
   );
 });
