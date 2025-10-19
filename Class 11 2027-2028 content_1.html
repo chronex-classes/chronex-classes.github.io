@@ -70,11 +70,7 @@
 <main class="max-w-6xl mx-auto p-4 sm:p-6 mt-6">
   <h1 class="text-3xl sm:text-4xl font-extrabold text-[#7851a9] mb-3 text-center border-b-4 border-[#e8d4f3] pb-3">Physical World</h1>
 
-  <!-- 
-    ✅ CHANGE 1: This is the ONLY container for lectures.
-    It has the correct ID 'lecture-container' (used by lecture_automator.js) 
-    and the necessary data attributes for filtering.
-  -->
+  <!-- Lecture data container: JS will fill this based on data attributes -->
   <div 
     id="lecture-container" 
     class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
@@ -84,12 +80,6 @@
     
     <p class="text-gray-500 col-span-full">Fetching lectures...</p> 
   </div>
-  
-  <!-- 
-    ❌ REMOVED: The old <div id="lectureContainer" class="grid..."> containing 
-    the three hardcoded LECTURE 1, 2, 3 cards is removed. 
-    The new container above will be populated dynamically.
-  -->
 
 </main>
 
@@ -111,7 +101,6 @@
   }
 
   // --- EXISTING YOUTUBE PLAYER AND PROGRESS TRACKING LOGIC ---
-  // This logic is crucial for maintaining the progress bar and checkbox functionality.
   const progressData = JSON.parse(localStorage.getItem('chronex_video_progress')) || {};
   let progressInterval = null; 
 
@@ -146,12 +135,10 @@
     }
   }
   
-  // Re-initialise progress for all dynamic cards after they are added by JS.
-  // This function is now called inside lecture_automator.js.
+  // This function is called by lecture_automator.js after it inserts the new cards.
   window.reinitializeProgress = function(filteredLectures) {
     filteredLectures.forEach((lecture, index) => {
-      // Use the index + 1 as a unique ID for the progress tracking, 
-      // as the sheet doesn't provide a single 'ID'.
+      // lectureId is index + 1
       initProgress(index + 1, false); 
     });
   }
@@ -171,13 +158,6 @@
     player.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
 
-    // Landscape orientation lock (if supported)
-    if (screen.orientation && screen.orientation.lock) {
-    screen.orientation.lock("landscape").catch(err => {
-      console.log("Orientation lock not supported:", err);
-    });
-    }
-    
     // Load YouTube API script if not present
     if(!window.YT){
       const tag = document.createElement('script');
@@ -236,15 +216,9 @@
     }
   });
 
-  // Since initProgress uses a global progressData, we call it here to initialize
-  // any static card elements that might have been left over before we removed them.
-  // For the final dynamic structure, it's primarily called by lecture_automator.js.
-
 </script>
 
-<!-- 
-    ✅ CHANGE 2: Load the automation script at the end.
--->
+<!-- FINAL STEP: Load the automation script -->
 <script src="lecture_automator.js"></script>
 
 </body>
