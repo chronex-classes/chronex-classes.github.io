@@ -1,0 +1,119 @@
+// lecture_automator.js
+const GOOGLE_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSsx8kKPn0aSyrAM8Glf54P5n88YdntfRZyQHWdwpdiB-j5LCVRydi1oMiyeqvHihYUF4njVsDH8WW2/pub?output=csv'; // <<--- ⚠️ Ekhane apnar URL boshan
+
+async function fetchAndRenderLectures() {
+    const container = document.getElementById('lecture-container');
+    if (!container) return; // If the container is not found, exit.
+
+    // 1. Extract Filter Parameters from HTML
+    const requiredClass = container.getAttribute('data-class');
+    const requiredBatch = container.getAttribute('data-batch');
+    const requiredChapter = container.getAttribute('data-chapter');
+
+    container.innerHTML = '<p class="text-gray-500 col-span-full">Fetching lectures...</p>';
+
+    try {
+        // 2. Fetch Data
+        const response = await fetch(GOOGLE_SHEET_CSV_URL);
+        const csvText = await response.text();
+
+        // Simple CSV parse function (First row is header)
+        const rows = csvText.trim().split('\n');
+        const headers = rows[0].split(',').map(h => h.trim());
+        const data = rows.slice(1).map(row => {
+            // Use a simple split assuming comma separation, this might be fragile if data contains commas
+            const values = row.split(',').map(v => v.trim()); 
+            if(values.length !== headers.length) return null; // Skip malformed rows
+            return headers.reduce((obj, header, index) => {
+                obj[header] = values[index];
+                return obj;
+            }, {});
+        }).filter(row => row !== null);
+
+        // 3. Data Filter Kora
+        const filteredLectures = data.filter(lecture => {
+            return (
+                lecture.Class === requiredClass &&
+                lecture.Batch === requiredBatch &&
+                lecture.Chapter === requiredChapter
+            );
+        });
+
+        // 4. Generate HTML with Original Theme and Functionality
+        if (filteredLectures.length === 0) {
+            container.innerHTML = '<p class="text-gray-500 col-span-full">❌ No lectures found for this criteria.</p>';
+            return;
+        }
+
+        let htmlContent = '';
+        filteredLectures.forEach((lecture, index) => {
+            // Create a unique ID for this lecture based on its position (index + 1)
+            // NOTE: This assumes the sheet is stable. If you had a unique ID column, use that instead.
+            const lectureId = index + 1; 
+
+            // Use Title and Link_ID from the Google Sheet
+            const lectureTitle = lecture.Title || `Lecture ${lectureId}`;
+            const videoID = lecture.Link_ID;
+            // The image URL is hardcoded in the original template, using a placeholder/generic one here.
+            // If you add a 'Thumbnail' column to your sheet, you should use ${lecture.Thumbnail} here.
+            const thumbnailUrl = `https://raw.githubusercontent.com/chronex-classes/_chronex-core_assets/main/UM-${lectureId}.png`; 
+            
+            // Replicating the exact original study-card HTML structure
+            htmlContent += `
+                <div class="study-card relative p-6 flex flex-col items-start bg-white rounded-xl shadow-lg transition duration-300" 
+                     data-lecture-id="${lectureId}" 
+                     style="border-top: 5px solid #7851a9;">
+                  
+                  <label class="absolute top-2 right-2 cursor-pointer flex items-center justify-center">
+                    <input type="checkbox" class="peer hidden lecture-checkbox" data-lecture="${lectureId}"/>
+                    <div class="w-6 h-6 rounded-full border-2 border-[#7851a9] flex items-center justify-center transition duration-200 peer-checked:bg-green-500 peer-checked:border-green-500">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-white hidden peer-checked:block" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 00-1.414 0L8 12.586 4.707 9.293A1 1 0 003.293 10.707l4 4a1 1 0 001.414 0l8-8a1 1 0 000-1.414z" clip-rule="evenodd"/>
+                      </svg>
+                    </div>
+                  </label>
+                  
+                  <div class="w-full aspect-video rounded-lg overflow-hidden mb-4 shadow-md">
+                    <!-- NOTE: Using onerror for image fallback in case the dynamic URL fails -->
+                    <img src="${thumbnailUrl}" 
+                         alt="${lectureTitle} Thumbnail" 
+                         class="w-full h-full object-cover transition duration-300 hover:scale-[1.05]"
+                         onerror="this.onerror=null; this.src='https://placehold.co/400x225/e8d4f3/7851a9?text=Video+Thumbnail';" />
+                  </div>
+                  
+                  <h2 class="text-xl font-bold text-[#7851a9] mb-2 leading-tight">${lectureTitle}</h2>
+                  
+                  <p class="text-gray-700 text-sm text-justify mb-2 flex-grow">
+                    ${lecture.Chapter} - ${lecture.Batch}
+                  </p>
+                  
+                  <div class="progress-bar-container">
+                    <div id="progressBar${lectureId}" class="progress-bar"></div>
+                  </div>
+                  
+                  <p id="progressText${lectureId}" class="progress-text">0% Watched</p>
+                  
+                  <!-- Button calls the existing openFullscreen function in the HTML -->
+                  <button onclick="openFullscreen('${videoID}', ${lectureId})" 
+                          class="w-full py-3 bg-[#7851a9] text-white font-bold rounded-lg hover:bg-[#5a3a7c] transition duration-200 text-lg mt-2">
+                    Watch Now
+                  </button>
+                </div>
+            `;
+        });
+
+        container.innerHTML = htmlContent;
+
+        // 5. Reinitialize progress tracking for newly created cards
+        if (window.reinitializeProgress) {
+            window.reinitializeProgress(filteredLectures);
+        }
+
+    } catch (error) {
+        console.error("Error fetching lectures:", error);
+        container.innerHTML = '<p class="text-red-500 col-span-full">⚠️ Failed to load lectures. Check your sheet link.</p>';
+    }
+}
+
+// Function-ta page load howar shathe shathe call kora
+document.addEventListener('DOMContentLoaded', fetchAndRenderLectures);

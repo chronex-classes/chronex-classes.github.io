@@ -32,7 +32,7 @@
     .study-card.completed { border-top-color: #16a34a !important; box-shadow: 0 0 20px rgba(34,197,94,0.3); transition: all 0.3s ease-in-out; }
     footer { background-color: #7851a9; color: white; text-align: center; padding: 12px; margin-top: 40px; font-size: 14px; }
     
-    /* ✅ Landscape video wrapper */
+    /* Landscape video wrapper */
     .video-wrapper {
       position: relative;
       width: 100%;
@@ -47,34 +47,8 @@
       border-radius: 12px;
     }
 
-.close-btn {
-  position: absolute;
-  top: 30px;
-  right: 6px;
-  font-size: 2rem;
-  color: white;
-  background: rgba(0,0,0,0.5);
-  border: none;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.3s;
-  z-index: 10001;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-}
-.close-btn:hover {
-  background: rgba(0,0,0,0.7);
-}
-.show-close .close-btn {
-  opacity: 1;
-  pointer-events: auto;
-}
+    .close-btn { position: absolute; top: 10px; right: 10px; font-size: 2rem; color: white; background: rgba(0,0,0,0.5); border: none; border-radius: 50%; width: 50px; height: 50px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.3s; z-index: 10001; }
+    .close-btn:hover { background: rgba(0,0,0,0.7); }
   </style>
 </head>
 <body>
@@ -87,12 +61,8 @@
   <div class="hamburger" onclick="toggleMenu()">
     <div></div><div></div><div></div>
   </div>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="Class 11 2027-2028 chapters.html">Chapters</a>
-  </nav>
+  <nav><a href="Class 11 2027-2028 chapters.html">Chapters</a></nav>
   <div id="mobileMenu" class="mobile-menu">
-    <a href="index.html">Home</a>
     <a href="Class 11 2027-2028 chapters.html">Chapters</a>
   </div>
 </header>
@@ -100,75 +70,27 @@
 <main class="max-w-6xl mx-auto p-4 sm:p-6 mt-6">
   <h1 class="text-3xl sm:text-4xl font-extrabold text-[#7851a9] mb-3 text-center border-b-4 border-[#e8d4f3] pb-3">Physical World</h1>
 
-  <div id="lectureContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-
-    <!-- LECTURE 1 -->
-    <div class="study-card relative p-6 flex flex-col items-start bg-white rounded-xl shadow-lg transition duration-300" data-lecture-id="1" style="border-top: 5px solid #7851a9;">
-      <label class="absolute top-2 right-2 cursor-pointer flex items-center justify-center">
-        <input type="checkbox" class="peer hidden lecture-checkbox" data-lecture="1"/>
-        <div class="w-6 h-6 rounded-full border-2 border-[#7851a9] flex items-center justify-center transition duration-200 peer-checked:bg-green-500 peer-checked:border-green-500">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-white hidden peer-checked:block" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 00-1.414 0L8 12.586 4.707 9.293A1 1 0 003.293 10.707l4 4a1 1 0 001.414 0l8-8a1 1 0 000-1.414z" clip-rule="evenodd"/>
-          </svg>
-        </div>
-      </label>
-      <div class="w-full aspect-video rounded-lg overflow-hidden mb-4 shadow-md">
-        <img src="https://raw.githubusercontent.com/chronex-classes/_chronex-core_assets/main/UM-1.png" alt="UM-1 Thumbnail" class="w-full h-full object-cover transition duration-300 hover:scale-[1.05]" />
-      </div>
-      <h2 class="text-xl font-bold text-[#7851a9] mb-2 leading-tight">Lecture 01:</h2>
-      <p class="text-gray-700 text-sm text-justify mb-2 flex-grow">This video was published on June 16, 2024.</p>
-      <div class="progress-bar-container">
-        <div id="progressBar1" class="progress-bar"></div>
-      </div>
-      <p id="progressText1" class="progress-text">0% Watched</p>
-      <button onclick="openFullscreen('gN0S21oOlAg', 1)" class="w-full py-3 bg-[#7851a9] text-white font-bold rounded-lg hover:bg-[#5a3a7c] transition duration-200 text-lg mt-2">Watch Now</button>
-    </div>
-
-    <!-- LECTURE 2 -->
-    <div class="study-card relative p-6 flex flex-col items-start bg-white rounded-xl shadow-lg transition duration-300" data-lecture-id="2" style="border-top: 5px solid #7851a9;">
-      <label class="absolute top-2 right-2 cursor-pointer flex items-center justify-center">
-        <input type="checkbox" class="peer hidden lecture-checkbox" data-lecture="2"/>
-        <div class="w-6 h-6 rounded-full border-2 border-[#7851a9] flex items-center justify-center transition duration-200 peer-checked:bg-green-500 peer-checked:border-green-500">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-white hidden peer-checked:block" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 00-1.414 0L8 12.586 4.707 9.293A1 1 0 003.293 10.707l4 4a1 1 0 001.414 0l8-8a1 1 0 000-1.414z" clip-rule="evenodd"/>
-          </svg>
-        </div>
-      </label>
-      <div class="w-full aspect-video rounded-lg overflow-hidden mb-4 shadow-md">
-        <img src="https://raw.githubusercontent.com/chronex-classes/_chronex-core_assets/main/UM-2.png" alt="UM-2 Thumbnail" class="w-full h-full object-cover transition duration-300 hover:scale-[1.05]" />
-      </div>
-      <h2 class="text-xl font-bold text-[#7851a9] mb-2 leading-tight">Lecture 02:</h2>
-      <p class="text-gray-700 text-sm text-justify mb-2 flex-grow">This video was published on June 20, 2024.</p>
-      <div class="progress-bar-container">
-        <div id="progressBar2" class="progress-bar"></div>
-      </div>
-      <p id="progressText2" class="progress-text">0% Watched</p>
-      <button onclick="openFullscreen('aHn6gQPcAWQ', 2)" class="w-full py-3 bg-[#7851a9] text-white font-bold rounded-lg hover:bg-[#5a3a7c] transition duration-200 text-lg mt-2">Watch Now</button>
-    </div>
-
-    <!-- LECTURE 3 -->
-    <div class="study-card relative p-6 flex flex-col items-start bg-white rounded-xl shadow-lg transition duration-300" data-lecture-id="3" style="border-top: 5px solid #7851a9;">
-      <label class="absolute top-2 right-2 cursor-pointer flex items-center justify-center">
-        <input type="checkbox" class="peer hidden lecture-checkbox" data-lecture="3"/>
-        <div class="w-6 h-6 rounded-full border-2 border-[#7851a9] flex items-center justify-center transition duration-200 peer-checked:bg-green-500 peer-checked:border-green-500">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-white hidden peer-checked:block" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 00-1.414 0L8 12.586 4.707 9.293A1 1 0 003.293 10.707l4 4a1 1 0 001.414 0l8-8a1 1 0 000-1.414z" clip-rule="evenodd"/>
-          </svg>
-        </div>
-      </label>
-      <div class="w-full aspect-video rounded-lg overflow-hidden mb-4 shadow-md">
-        <img src="https://raw.githubusercontent.com/chronex-classes/_chronex-core_assets/main/UM-2.png" alt="UM-3 Thumbnail" class="w-full h-full object-cover transition duration-300 hover:scale-[1.05]" />
-      </div>
-      <h2 class="text-xl font-bold text-[#7851a9] mb-2 leading-tight">Lecture 03:</h2>
-      <p class="text-gray-700 text-sm text-justify mb-2 flex-grow">This video was published on June 25, 2024.</p>
-      <div class="progress-bar-container">
-        <div id="progressBar3" class="progress-bar"></div>
-      </div>
-      <p id="progressText3" class="progress-text">0% Watched</p>
-      <button onclick="openFullscreen('H3wb6QJTMb0', 3)" class="w-full py-3 bg-[#7851a9] text-white font-bold rounded-lg hover:bg-[#5a3a7c] transition duration-200 text-lg mt-2">Watch Now</button>
-    </div>
-
+  <!-- 
+    ✅ CHANGE 1: This is the ONLY container for lectures.
+    It has the correct ID 'lecture-container' (used by lecture_automator.js) 
+    and the necessary data attributes for filtering.
+  -->
+  <div 
+    id="lecture-container" 
+    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
+    data-class="11" 
+    data-batch="2027-2028"
+    data-chapter="Physical World">
+    
+    <p class="text-gray-500 col-span-full">Fetching lectures...</p> 
   </div>
+  
+  <!-- 
+    ❌ REMOVED: The old <div id="lectureContainer" class="grid..."> containing 
+    the three hardcoded LECTURE 1, 2, 3 cards is removed. 
+    The new container above will be populated dynamically.
+  -->
+
 </main>
 
 <div id="fullscreen-player" class="fixed inset-0 z-[9999] bg-black bg-opacity-90 hidden">
@@ -187,106 +109,118 @@
     document.getElementById('mobileMenu').classList.toggle('active');
     document.querySelector('.hamburger').classList.toggle('open');
   }
-document.getElementById('fullscreen-player').addEventListener('click', () => {
-  const player = document.getElementById('fullscreen-player');
-  player.classList.toggle('show-close');
-});
-  
-  const progressData = JSON.parse(localStorage.getItem('chronex_video_progress')) || {};
-  let progressInterval = null; // interval tracker
 
-  // Initialize progress bars and checkboxes
-  Object.keys(progressData).forEach(id => {
-    const data = progressData[id];
+  // --- EXISTING YOUTUBE PLAYER AND PROGRESS TRACKING LOGIC ---
+  // This logic is crucial for maintaining the progress bar and checkbox functionality.
+  const progressData = JSON.parse(localStorage.getItem('chronex_video_progress')) || {};
+  let progressInterval = null; 
+
+  function initProgress(lectureId, isChecked) {
+    const data = progressData[lectureId] || {percent:0, time:0};
     const percent = data.percent || 0;
-    const progressBar = document.getElementById('progressBar'+id);
-    const progressText = document.getElementById('progressText'+id);
-    const checkbox = document.querySelector(`.lecture-checkbox[data-lecture='${id}']`);
+    const progressBar = document.getElementById('progressBar'+lectureId);
+    const progressText = document.getElementById('progressText'+lectureId);
+    const checkbox = document.querySelector(`.lecture-checkbox[data-lecture='${lectureId}']`);
+    const card = document.querySelector(`.study-card[data-lecture-id='${lectureId}']`);
+
     if(progressBar) progressBar.style.width = percent + '%';
     if(progressText) progressText.textContent = percent + '% Watched';
-    if(percent >= 100 && checkbox){
-      checkbox.checked = true;
-      checkbox.closest('.study-card').classList.add('completed');
+    
+    if(checkbox){
+        checkbox.checked = isChecked || (percent >= 100);
+        checkbox.addEventListener('change', (e) => {
+            if(e.target.checked) {
+                 card.classList.add('completed');
+                 progressData[lectureId] = {percent: 100, time: progressData[lectureId]?.time || 0};
+                 localStorage.setItem('chronex_video_progress', JSON.stringify(progressData));
+                 if(progressBar) progressBar.style.width = '100%';
+                 if(progressText) progressText.textContent = '100% Watched';
+            } else {
+                 card.classList.remove('completed');
+            }
+        });
     }
-  });
 
-function openFullscreen(videoId, lectureId) {
-  const player = document.getElementById('fullscreen-player');
-  const iframeContainer = document.getElementById('video-iframe-container');
-
-  // Stop any existing interval
-  if (progressInterval) clearInterval(progressInterval);
-
-  const lastProgress = progressData[lectureId] || { percent: 0, time: 0 };
-  const embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&enablejsapi=1&controls=1&showinfo=0&iv_load_policy=3&disablekb=1&playlist=${videoId}&start=${Math.floor(lastProgress.time)}`;
-
-  // Inject iframe
-  iframeContainer.innerHTML = `
-    <div class="video-wrapper">
-      <iframe id='ytplayer' src='${embedUrl}' frameborder='0' allow='autoplay; encrypted-media' allowfullscreen></iframe>
-    </div>
-  `;
-
-  player.classList.remove('hidden');
-  document.body.style.overflow = 'hidden';
-
-  // ✅ Request fullscreen
-  if (player.requestFullscreen) {
-    player.requestFullscreen();
-  } else if (player.webkitRequestFullscreen) { // Safari
-    player.webkitRequestFullscreen();
-  } else if (player.msRequestFullscreen) { // IE/Edge
-    player.msRequestFullscreen();
+    if(card && checkbox.checked){
+      card.classList.add('completed');
+    }
+  }
+  
+  // Re-initialise progress for all dynamic cards after they are added by JS.
+  // This function is now called inside lecture_automator.js.
+  window.reinitializeProgress = function(filteredLectures) {
+    filteredLectures.forEach((lecture, index) => {
+      // Use the index + 1 as a unique ID for the progress tracking, 
+      // as the sheet doesn't provide a single 'ID'.
+      initProgress(index + 1, false); 
+    });
   }
 
-  // ✅ Try to lock orientation
-  if (screen.orientation && screen.orientation.lock) {
+
+  function openFullscreen(videoId, lectureId) {
+    const player = document.getElementById('fullscreen-player');
+    const iframeContainer = document.getElementById('video-iframe-container');
+
+    // Stop any existing interval
+    if(progressInterval) clearInterval(progressInterval);
+
+    const lastProgress = progressData[lectureId] || {percent:0, time:0};
+    const embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&enablejsapi=1&controls=1&showinfo=0&iv_load_policy=3&playlist=${videoId}&start=${Math.floor(lastProgress.time)}`;
+    
+    iframeContainer.innerHTML = `<div class="video-wrapper"><iframe id='ytplayer' src='${embedUrl}' frameborder='0' allow='autoplay; encrypted-media' allowfullscreen></iframe></div>`;
+    player.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+
+    // Landscape orientation lock (if supported)
+    if (screen.orientation && screen.orientation.lock) {
     screen.orientation.lock("landscape").catch(err => {
       console.log("Orientation lock not supported:", err);
     });
-  }
+    }
+    
+    // Load YouTube API script if not present
+    if(!window.YT){
+      const tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      document.body.appendChild(tag);
+    }
 
-  // ✅ YouTube API setup
-  if (!window.YT) {
-    const tag = document.createElement('script');
-    tag.src = 'https://www.youtube.com/iframe_api';
-    document.body.appendChild(tag);
-  }
+    window.onYouTubeIframeAPIReady = function(){
+      const ytPlayer = new YT.Player('ytplayer', {
+        events: {
+          'onStateChange': function(event){
+            const videoDuration = event.target.getDuration();
+            if(event.data === YT.PlayerState.PLAYING){
+              progressInterval = setInterval(() => {
+                const currentTime = event.target.getCurrentTime();
+                const percent = Math.min(100, Math.round((currentTime / videoDuration) * 100)); // Cap at 100
+                
+                const progressBar = document.getElementById('progressBar'+lectureId);
+                const progressText = document.getElementById('progressText'+lectureId);
+                const checkbox = document.querySelector(`.lecture-checkbox[data-lecture='${lectureId}']`);
+                const card = document.querySelector(`.study-card[data-lecture-id='${lectureId}']`);
 
-  window.onYouTubeIframeAPIReady = function () {
-    const ytPlayer = new YT.Player('ytplayer', {
-      events: {
-        'onStateChange': function (event) {
-          const videoDuration = event.target.getDuration();
-          if (event.data === YT.PlayerState.PLAYING) {
-            progressInterval = setInterval(() => {
-              const currentTime = event.target.getCurrentTime();
-              const percent = Math.round((currentTime / videoDuration) * 100);
-              const progressBar = document.getElementById('progressBar' + lectureId);
-              const progressText = document.getElementById('progressText' + lectureId);
-              const checkbox = document.querySelector(`.lecture-checkbox[data-lecture='${lectureId}']`);
+                if(progressBar) progressBar.style.width = percent + '%';
+                if(progressText) progressText.textContent = percent + '% Watched';
 
-              if (progressBar) progressBar.style.width = percent + '%';
-              if (progressText) progressText.textContent = percent + '% Watched';
+                progressData[lectureId] = {percent: percent, time: currentTime};
+                localStorage.setItem('chronex_video_progress', JSON.stringify(progressData));
 
-              progressData[lectureId] = { percent: percent, time: currentTime };
-              localStorage.setItem('chronex_video_progress', JSON.stringify(progressData));
+                if(checkbox && percent >= 100){
+                  checkbox.checked = true;
+                  if (card) card.classList.add('completed');
+                  clearInterval(progressInterval);
+                }
 
-              if (checkbox && percent >= 100) {
-                checkbox.checked = true;
-                checkbox.closest('.study-card').classList.add('completed');
-              }
-
-              if (percent >= 100) clearInterval(progressInterval);
-            }, 1000);
-          } else {
-            clearInterval(progressInterval);
+              }, 1000); // Update every second
+            } else {
+              clearInterval(progressInterval);
+            }
           }
         }
-      }
-    });
+      });
+    }
   }
-}
 
   function closeFullscreen() {
     const player = document.getElementById('fullscreen-player');
@@ -301,15 +235,17 @@ function openFullscreen(videoId, lectureId) {
       closeFullscreen();
     }
   });
+
+  // Since initProgress uses a global progressData, we call it here to initialize
+  // any static card elements that might have been left over before we removed them.
+  // For the final dynamic structure, it's primarily called by lecture_automator.js.
+
 </script>
+
+<!-- 
+    ✅ CHANGE 2: Load the automation script at the end.
+-->
+<script src="lecture_automator.js"></script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
