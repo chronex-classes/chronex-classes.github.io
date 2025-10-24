@@ -47,25 +47,25 @@
       border-radius: 12px;
     }
 
-    /* 🚩 CHANGE 1: Modified .video-container CSS */
+    /* 🚩 FIXED: Prevents video container from pushing down and cutting off the bottom */
     .video-container {
         width: 95%; /* Adjust width for smaller screens */
         max-width: 1000px; /* Max width for large screens */
-        max-height: 95vh; /* ADDED: Restricts height to 95% of viewport height to prevent cutoff */
-        /* REMOVED: margin: 5% auto; which caused the empty space at the top */
+        max-height: 95vh; /* Restricts height to 95% of viewport height */
+        /* Removed margin: 5% auto; which caused the empty space at the top and the cutoff */
     }
 
 .close-btn {
   position: absolute;
-  top: 30px; /* Adjusted position */
-  right: 7px; /* Adjusted position */
+  top: 10px;
+  right: 10px;
   font-size: 2rem;
   color: white;
   background: rgba(0,0,0,0.5);
   border: none;
   border-radius: 50%;
-  width: 30px; /* Increased size for better touch target */
-  height: 30px;
+  width: 40px;
+  height: 40px;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -169,6 +169,7 @@
   </div>
 </main>
 
+<!-- 🚩 FIXED: Added flex, justify-center, and items-center to center the video vertically and horizontally -->
 <div id="fullscreen-player" class="fixed inset-0 z-[9999] bg-black bg-opacity-90 hidden flex justify-center items-center">
   <div class="video-container relative" onclick="event.stopPropagation()">
     <button class="close-btn" onclick="closeFullscreen()">&times;</button>
@@ -322,6 +323,3 @@ function openFullscreen(videoId, lectureId) {
 
 </body>
 </html>
-
-
-
