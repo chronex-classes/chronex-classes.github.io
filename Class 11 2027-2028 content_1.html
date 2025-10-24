@@ -31,8 +31,8 @@
     .progress-text { text-align: center; color: #5a3a7c; font-weight: 600; margin-top: 8px; }
     .study-card.completed { border-top-color: #16a34a !important; box-shadow: 0 0 20px rgba(34,197,94,0.3); transition: all 0.3s ease-in-out; }
     footer { background-color: #7851a9; color: white; text-align: center; padding: 12px; margin-top: 40px; font-size: 14px; }
-    
-    /* ✅ Landscape video wrapper */
+
+    /* Landscape video wrapper */
     .video-wrapper {
       position: relative;
       width: 100%;
@@ -47,33 +47,32 @@
       border-radius: 12px;
     }
 
+    .video-container {
+        width: 95%; /* Adjust width for smaller screens */
+        max-width: 1000px; /* Max width for large screens */
+        margin: 5% auto; /* Center vertically and horizontally */
+    }
+
 .close-btn {
   position: absolute;
-  top: 30px;
-  right: 6px;
+  top: 10px; /* Adjusted position */
+  right: 10px; /* Adjusted position */
   font-size: 2rem;
   color: white;
   background: rgba(0,0,0,0.5);
   border: none;
   border-radius: 50%;
-  width: 20px;
-  height: 20px;
+  width: 40px; /* Increased size for better touch target */
+  height: 40px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: background 0.3s;
   z-index: 10001;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
 }
 .close-btn:hover {
   background: rgba(0,0,0,0.7);
-}
-.show-close .close-btn {
-  opacity: 1;
-  pointer-events: auto;
 }
   </style>
 </head>
@@ -87,10 +86,7 @@
   <div class="hamburger" onclick="toggleMenu()">
     <div></div><div></div><div></div>
   </div>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="Class 11 2027-2028 chapters.html">Chapters</a>
-  </nav>
+  <nav><a href="Class 11 2027-2028 chapters.html">Chapters</a></nav>
   <div id="mobileMenu" class="mobile-menu">
     <a href="index.html">Home</a>
     <a href="Class 11 2027-2028 chapters.html">Chapters</a>
@@ -121,7 +117,7 @@
         <div id="progressBar1" class="progress-bar"></div>
       </div>
       <p id="progressText1" class="progress-text">0% Watched</p>
-      <button onclick="openFullscreen('B7UdBffEPas', 1)" class="w-full py-3 bg-[#7851a9] text-white font-bold rounded-lg hover:bg-[#5a3a7c] transition duration-200 text-lg mt-2">Watch Now</button>
+      <button onclick="openFullscreen('gN0S21oOlAg', 1)" class="w-full py-3 bg-[#7851a9] text-white font-bold rounded-lg hover:bg-[#5a3a7c] transition duration-200 text-lg mt-2">Watch Now</button>
     </div>
 
     <!-- LECTURE 2 -->
@@ -143,7 +139,7 @@
         <div id="progressBar2" class="progress-bar"></div>
       </div>
       <p id="progressText2" class="progress-text">0% Watched</p>
-      <button onclick="openFullscreen('MvbnEJ5z8Rg', 2)" class="w-full py-3 bg-[#7851a9] text-white font-bold rounded-lg hover:bg-[#5a3a7c] transition duration-200 text-lg mt-2">Watch Now</button>
+      <button onclick="openFullscreen('aHn6gQPcAWQ', 2)" class="w-full py-3 bg-[#7851a9] text-white font-bold rounded-lg hover:bg-[#5a3a7c] transition duration-200 text-lg mt-2">Watch Now</button>
     </div>
 
     <!-- LECTURE 3 -->
@@ -165,7 +161,7 @@
         <div id="progressBar3" class="progress-bar"></div>
       </div>
       <p id="progressText3" class="progress-text">0% Watched</p>
-      <button onclick="openFullscreen('BPa2aAp8xbc', 3)" class="w-full py-3 bg-[#7851a9] text-white font-bold rounded-lg hover:bg-[#5a3a7c] transition duration-200 text-lg mt-2">Watch Now</button>
+      <button onclick="openFullscreen('H3wb6QJTMb0', 3)" class="w-full py-3 bg-[#7851a9] text-white font-bold rounded-lg hover:bg-[#5a3a7c] transition duration-200 text-lg mt-2">Watch Now</button>
     </div>
 
   </div>
@@ -187,11 +183,7 @@
     document.getElementById('mobileMenu').classList.toggle('active');
     document.querySelector('.hamburger').classList.toggle('open');
   }
-document.getElementById('fullscreen-player').addEventListener('click', () => {
-  const player = document.getElementById('fullscreen-player');
-  player.classList.toggle('show-close');
-});
-  
+
   const progressData = JSON.parse(localStorage.getItem('chronex_video_progress')) || {};
   let progressInterval = null; // interval tracker
 
@@ -230,7 +222,7 @@ function openFullscreen(videoId, lectureId) {
   player.classList.remove('hidden');
   document.body.style.overflow = 'hidden';
 
-  // ✅ Request fullscreen
+  // Request fullscreen
   if (player.requestFullscreen) {
     player.requestFullscreen();
   } else if (player.webkitRequestFullscreen) { // Safari
@@ -239,21 +231,16 @@ function openFullscreen(videoId, lectureId) {
     player.msRequestFullscreen();
   }
 
-  // ✅ Try to lock orientation
+  // Try to lock orientation
   if (screen.orientation && screen.orientation.lock) {
     screen.orientation.lock("landscape").catch(err => {
       console.log("Orientation lock not supported:", err);
     });
   }
 
-  // ✅ YouTube API setup
-  if (!window.YT) {
-    const tag = document.createElement('script');
-    tag.src = 'https://www.youtube.com/iframe_api';
-    document.body.appendChild(tag);
-  }
-
-  window.onYouTubeIframeAPIReady = function () {
+  // Refactored function to create the YouTube Player instance
+  const initPlayer = () => {
+    // This uses the locally scoped lectureId from openFullscreen
     const ytPlayer = new YT.Player('ytplayer', {
       events: {
         'onStateChange': function (event) {
@@ -285,10 +272,38 @@ function openFullscreen(videoId, lectureId) {
         }
       }
     });
+  };
+
+  // ✅ FIX: YouTube API setup
+  if (!window.YT) {
+    // If API script is not loaded, load it
+    const tag = document.createElement('script');
+    tag.src = 'https://www.youtube.com/iframe_api';
+    document.body.appendChild(tag);
+    
+    // Set the global callback function to initialize the player once the API is ready
+    window.onYouTubeIframeAPIReady = initPlayer;
+  } else {
+    // If the API is already loaded (subsequent click), initialize player immediately
+    initPlayer();
   }
 }
 
   function closeFullscreen() {
+    // If the player exists, stop it to prevent it from continuing to play in the background
+    const iframe = document.getElementById('ytplayer');
+    if (iframe && window.YT) {
+        try {
+            // Attempt to stop the video using the API if it's available
+            const playerInstance = YT.get(iframe);
+            if (playerInstance && typeof playerInstance.stopVideo === 'function') {
+                playerInstance.stopVideo();
+            }
+        } catch (e) {
+            console.error("Could not stop YouTube player via API:", e);
+        }
+    }
+    
     const player = document.getElementById('fullscreen-player');
     document.getElementById('video-iframe-container').innerHTML = '';
     player.classList.add('hidden');
