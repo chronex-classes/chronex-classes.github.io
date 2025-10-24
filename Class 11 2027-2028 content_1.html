@@ -50,7 +50,8 @@
     .video-container {
         width: 95%; /* Adjust width for smaller screens */
         max-width: 1000px; /* Max width for large screens */
-        margin: 5% auto; /* Center vertically and horizontally */
+        max-height: 95vh; /* ADDED: Restricts height to 95% of viewport height to prevent cutoff */
+        /* REMOVED: margin: 5% auto; which caused the empty space at the top */
     }
 
 .close-btn {
@@ -167,7 +168,8 @@
   </div>
 </main>
 
-<div id="fullscreen-player" class="fixed inset-0 z-[9999] bg-black bg-opacity-90 hidden">
+<!-- MODIFIED: Added 'flex justify-center items-center' classes to perfectly center the video container -->
+<div id="fullscreen-player" class="fixed inset-0 z-[9999] bg-black bg-opacity-90 hidden flex justify-center items-center">
   <div class="video-container relative" onclick="event.stopPropagation()">
     <button class="close-btn" onclick="closeFullscreen()">&times;</button>
     <div id="video-iframe-container" class="w-full h-full"></div>
@@ -274,7 +276,7 @@ function openFullscreen(videoId, lectureId) {
     });
   };
 
-  // ✅ FIX: YouTube API setup
+  // FIX: YouTube API setup
   if (!window.YT) {
     // If API script is not loaded, load it
     const tag = document.createElement('script');
