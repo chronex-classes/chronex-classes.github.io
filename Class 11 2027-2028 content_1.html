@@ -56,7 +56,7 @@
 
 .close-btn {
   position: absolute;
-  top: 10px; /* Adjusted position */
+  top: 30px; /* Adjusted position */
   right: 10px; /* Adjusted position */
   font-size: 2rem;
   color: white;
@@ -168,7 +168,6 @@
   </div>
 </main>
 
-<!-- MODIFIED: Added 'flex justify-center items-center' classes to perfectly center the video container -->
 <div id="fullscreen-player" class="fixed inset-0 z-[9999] bg-black bg-opacity-90 hidden flex justify-center items-center">
   <div class="video-container relative" onclick="event.stopPropagation()">
     <button class="close-btn" onclick="closeFullscreen()">&times;</button>
@@ -322,3 +321,4 @@ function openFullscreen(videoId, lectureId) {
 
 </body>
 </html>
+
