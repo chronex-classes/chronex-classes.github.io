@@ -47,6 +47,7 @@
       border-radius: 12px;
     }
 
+    /* 🚩 CHANGE 1: Modified .video-container CSS */
     .video-container {
         width: 95%; /* Adjust width for smaller screens */
         max-width: 1000px; /* Max width for large screens */
@@ -56,7 +57,7 @@
 
 .close-btn {
   position: absolute;
-  top: 30px; /* Adjusted position */
+  top: 10px; /* Adjusted position */
   right: 10px; /* Adjusted position */
   font-size: 2rem;
   color: white;
@@ -168,6 +169,7 @@
   </div>
 </main>
 
+<!-- 🚩 CHANGE 2: Added Flexbox classes here for perfect centering -->
 <div id="fullscreen-player" class="fixed inset-0 z-[9999] bg-black bg-opacity-90 hidden flex justify-center items-center">
   <div class="video-container relative" onclick="event.stopPropagation()">
     <button class="close-btn" onclick="closeFullscreen()">&times;</button>
@@ -321,4 +323,3 @@ function openFullscreen(videoId, lectureId) {
 
 </body>
 </html>
-
