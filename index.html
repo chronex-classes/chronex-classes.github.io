@@ -197,6 +197,23 @@
     }
      /* Hide install button by default */
      #installAppBtn { display: none; }
+
+        #my-floating-image {
+            position: fixed;       /* Keeps it floating even when scrolling */
+            top: 50px;             /* Initial position from top */
+            left: 50px;            /* Initial position from left */
+            width: 150px;          /* Adjust the size of the image here */
+            z-index: 10000;        /* Ensures it stays on top of all other content */
+            cursor: move;          /* Shows a move cursor on hover */
+            
+            /* These prevent the image from being highlighted/selected */
+            -webkit-user-select: none;
+            user-select: none;
+            
+            /* Important for mobile: prevents screen scrolling while dragging */
+            touch-action: none;    
+        }
+    </style>
   </style>
 </head>
 <body>
@@ -304,6 +321,8 @@
     ⬆️
   </button>
 
+    <img id="my-floating-image" src="./My_Image.png" alt="Draggable Sticker">
+
   <script>
     // ✅ Dynamic year in footer
     document.getElementById('year').textContent = new Date().getFullYear();
@@ -346,6 +365,71 @@
         console.log('Service Worker Registered ✅')
       );
     }
+
+        (function() {
+            const img = document.getElementById('my-floating-image');
+            let isDragging = false;
+            let startX, startY, initialLeft, initialTop;
+
+            // --- EVENT LISTENERS ---
+            
+            // 1. Start Dragging (Mouse & Touch)
+            img.addEventListener('mousedown', startDrag);
+            img.addEventListener('touchstart', startDrag, { passive: false });
+
+            // 2. Dragging Movement (Mouse & Touch)
+            // We attach these to 'document' so you don't lose the image if you move too fast
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('touchmove', drag, { passive: false });
+
+            // 3. Stop Dragging (Mouse & Touch)
+            document.addEventListener('mouseup', endDrag);
+            document.addEventListener('touchend', endDrag);
+
+
+            // --- FUNCTIONS ---
+
+            function startDrag(e) {
+                isDragging = true;
+                
+                // Check if the event is a touch or a mouse click
+                // For touch, we use touches[0], for mouse we use the event directly
+                const clientX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
+                const clientY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
+
+                startX = clientX;
+                startY = clientY;
+
+                // Get the current position of the image
+                const rect = img.getBoundingClientRect();
+                initialLeft = rect.left;
+                initialTop = rect.top;
+            }
+
+            function drag(e) {
+                if (!isDragging) return;
+
+                // Prevent the screen from scrolling while dragging on mobile
+                if(e.type === 'touchmove') {
+                    e.preventDefault(); 
+                }
+
+                const clientX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
+                const clientY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
+
+                // Calculate how much the cursor/finger moved
+                const dx = clientX - startX;
+                const dy = clientY - startY;
+
+                // Apply the new position
+                img.style.left = (initialLeft + dx) + 'px';
+                img.style.top = (initialTop + dy) + 'px';
+            }
+
+            function endDrag() {
+                isDragging = false;
+            }
+        })();
   </script>
 </body>
 
